@@ -38,9 +38,14 @@ func (b *Broker) Start() {
 			}
 		case event := <-b.broadcast:
 			for client := range b.clients {
-				client <- event
+				select {
+				case client <- event:
+				default:
+					// Drop event if client is too slow or disconnected
+				}
 			}
 		}
+
 	}
 }
 
@@ -58,7 +63,8 @@ func (b *Broker) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	flusher.Flush()
 
-	clientChan := make(chan SSEEvent)
+	clientChan := make(chan SSEEvent, 100)
+
 	b.register <- clientChan
 
 	notify := r.Context().Done()

@@ -8,10 +8,13 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"enct-hub/engine"
 )
 
 //go:embed templates/*
 var content embed.FS
+
+var loop *engine.FivePhaseLoop
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
@@ -49,6 +52,9 @@ func socraticEvaluateHandler(w http.ResponseWriter, r *http.Request) {
 	qID, _ := strconv.Atoi(r.FormValue("question_id"))
 	answer := r.FormValue("answer")
 
+	// Trigger a loop cycle for bootstrap validation
+	loop.ExecuteCycle(map[string]interface{}{"command": "bootstrap_axiom_" + strconv.Itoa(qID), "answer": answer}, nil)
+
 	// Check for violation
 	if strings.Contains(strings.ToLower(answer), "(violation)") {
 		fmt.Fprintf(w, `<article class="error"><h3>Policy Rejected</h3><p>Your answer indicates a violation of Axiom %d. This incident has been logged.</p><button hx-get="/api/socratic/start" hx-target="#socratic-content" hx-swap="outerHTML">Try Again</button></article>`, qID)
@@ -57,7 +63,7 @@ func socraticEvaluateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Move to next question or finish
 	if qID < len(Axioms) {
-		nextQ := Axioms[qID] // Index is qID because Axioms are 0-indexed and qID is 1-indexed
+		nextQ := Axioms[qID] 
 		tmpl, _ := template.ParseFS(content, "templates/axiom.html")
 		tmpl.Execute(w, nextQ)
 	} else {
@@ -80,17 +86,26 @@ func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
 	agentID := r.FormValue("agent_id")
 	cmd := r.FormValue("command")
 
-	response := HandleCommand(agentID, cmd)
+	fmt.Printf("Received command from %s: %s\n", agentID, cmd)
+	// 1. Run real ENCT cycle
+	state, err := loop.ExecuteCycle(map[string]interface{}{"agent_id": agentID, "command": cmd}, map[string]interface{}{"env": "production"})
+	fmt.Printf("Cycle finished with status: %s\n", state.Status)
+	
 	agent := GetAgent(agentID)
 	agentName := "Unknown"
 	if agent != nil {
 		agentName = agent.Name
 	}
 
+	message := fmt.Sprintf("Command: %s | Result: %s", cmd, state.Status)
+	if err != nil {
+		message = fmt.Sprintf("Axiom Violation: %v", err)
+	}
+
 	msg := ConsoleMessage{
 		Timestamp: time.Now().Format("15:04:05"),
 		AgentName: agentName,
-		Message:   response,
+		Message:   message,
 	}
 
 	tmpl, _ := template.ParseFS(content, "templates/console.html")
@@ -102,19 +117,27 @@ func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
 		Data:  buf.String(),
 	}
 
-	w.WriteHeader(http.StatusAccepted)
-}
-
-func telemetryHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
+	// 2. Trigger immediate UI update for indicators
+	snapshot := loop.GetSnapshot()
+	UpdateIndicators(snapshot.Indicators)
+	for _, ind := range CurrentIndicators {
+		b.broadcast <- SSEEvent{
+			Event: fmt.Sprintf("indicator-%d", ind.ID),
+			Data:  ind.RenderHTML(),
+		}
 	}
-	b.broadcast <- SSEEvent{Event: "message", Data: "Custom Telemetry Update"}
+
 	w.WriteHeader(http.StatusAccepted)
 }
 
 func main() {
+	var err error
+	// Initialize engine with ledger path at project root (outside src)
+	loop, err = engine.NewFivePhaseLoop("../../ledger")
+	if err != nil {
+		panic(err)
+	}
+
 	broker := NewBroker()
 	go broker.Start()
 	go simulateTelemetry(broker)
@@ -127,12 +150,17 @@ func main() {
 	})
 	http.HandleFunc("/api/stream", broker.ServeHTTP)
 	http.HandleFunc("/", indexHandler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8081", nil)
 }
 
 func simulateTelemetry(b *Broker) {
 	for {
-		time.Sleep(2 * time.Second)
+		time.Sleep(5 * time.Second)
+		// Run a "heartbeat" cycle to maintain homeostasis
+		loop.ExecuteCycle(map[string]interface{}{"command": "heartbeat"}, nil)
+		
+		snapshot := loop.GetSnapshot()
+		UpdateIndicators(snapshot.Indicators)
 		for _, ind := range CurrentIndicators {
 			b.broadcast <- SSEEvent{
 				Event: fmt.Sprintf("indicator-%d", ind.ID),
@@ -141,3 +169,5 @@ func simulateTelemetry(b *Broker) {
 		}
 	}
 }
+
+
