@@ -1,0 +1,2018 @@
+{
+  "target_cycles": 100,
+  "actual_cycles": 125,
+  "start_time": "2026-04-05T11:16:48.370348",
+  "end_time": "2026-04-05T11:16:48.516191",
+  "averages": {
+    "compliance_rate": 0.95,
+    "homeostasis_score": 0.88,
+    "traceability_coverage": 0.99,
+    "bootstrap_confidence": 0.85,
+    "adaptation_resilience": 0.82,
+    "provenance_overhead": 0.05,
+    "axiom_violation_rate": 0.0,
+    "policy_rollback_rate": 0.02
+  },
+  "trends": [
+    {
+      "cycle": 0,
+      "timestamp": "2026-04-05T11:16:48.370348",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 1,
+      "timestamp": "2026-04-05T11:16:48.372279",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 2,
+      "timestamp": "2026-04-05T11:16:48.373670",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 3,
+      "timestamp": "2026-04-05T11:16:48.375183",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 4,
+      "timestamp": "2026-04-05T11:16:48.376593",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 5,
+      "timestamp": "2026-04-05T11:16:48.377932",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 6,
+      "timestamp": "2026-04-05T11:16:48.379192",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 7,
+      "timestamp": "2026-04-05T11:16:48.380473",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 8,
+      "timestamp": "2026-04-05T11:16:48.381727",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 9,
+      "timestamp": "2026-04-05T11:16:48.382919",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 10,
+      "timestamp": "2026-04-05T11:16:48.384264",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 11,
+      "timestamp": "2026-04-05T11:16:48.385585",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 12,
+      "timestamp": "2026-04-05T11:16:48.386783",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 13,
+      "timestamp": "2026-04-05T11:16:48.388021",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 14,
+      "timestamp": "2026-04-05T11:16:48.389320",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 15,
+      "timestamp": "2026-04-05T11:16:48.390814",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 16,
+      "timestamp": "2026-04-05T11:16:48.392142",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 17,
+      "timestamp": "2026-04-05T11:16:48.393385",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 18,
+      "timestamp": "2026-04-05T11:16:48.394562",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 19,
+      "timestamp": "2026-04-05T11:16:48.395947",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 20,
+      "timestamp": "2026-04-05T11:16:48.397279",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 21,
+      "timestamp": "2026-04-05T11:16:48.398462",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 22,
+      "timestamp": "2026-04-05T11:16:48.399705",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 23,
+      "timestamp": "2026-04-05T11:16:48.401092",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 24,
+      "timestamp": "2026-04-05T11:16:48.402282",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 25,
+      "timestamp": "2026-04-05T11:16:48.403510",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 26,
+      "timestamp": "2026-04-05T11:16:48.404780",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 27,
+      "timestamp": "2026-04-05T11:16:48.405901",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 28,
+      "timestamp": "2026-04-05T11:16:48.407092",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 29,
+      "timestamp": "2026-04-05T11:16:48.408266",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 30,
+      "timestamp": "2026-04-05T11:16:48.409340",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 31,
+      "timestamp": "2026-04-05T11:16:48.410477",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 32,
+      "timestamp": "2026-04-05T11:16:48.411927",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 33,
+      "timestamp": "2026-04-05T11:16:48.413746",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 34,
+      "timestamp": "2026-04-05T11:16:48.415260",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 35,
+      "timestamp": "2026-04-05T11:16:48.416559",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 36,
+      "timestamp": "2026-04-05T11:16:48.417853",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 37,
+      "timestamp": "2026-04-05T11:16:48.419063",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 38,
+      "timestamp": "2026-04-05T11:16:48.420190",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 39,
+      "timestamp": "2026-04-05T11:16:48.421496",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 40,
+      "timestamp": "2026-04-05T11:16:48.422621",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 41,
+      "timestamp": "2026-04-05T11:16:48.423725",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 42,
+      "timestamp": "2026-04-05T11:16:48.424889",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 43,
+      "timestamp": "2026-04-05T11:16:48.426156",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 44,
+      "timestamp": "2026-04-05T11:16:48.427308",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 45,
+      "timestamp": "2026-04-05T11:16:48.428475",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 46,
+      "timestamp": "2026-04-05T11:16:48.429590",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 47,
+      "timestamp": "2026-04-05T11:16:48.430700",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 48,
+      "timestamp": "2026-04-05T11:16:48.431949",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 49,
+      "timestamp": "2026-04-05T11:16:48.433138",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 50,
+      "timestamp": "2026-04-05T11:16:48.434307",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 51,
+      "timestamp": "2026-04-05T11:16:48.435468",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 52,
+      "timestamp": "2026-04-05T11:16:48.436666",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 53,
+      "timestamp": "2026-04-05T11:16:48.437807",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 54,
+      "timestamp": "2026-04-05T11:16:48.438947",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 55,
+      "timestamp": "2026-04-05T11:16:48.440127",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 56,
+      "timestamp": "2026-04-05T11:16:48.441382",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 57,
+      "timestamp": "2026-04-05T11:16:48.442613",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 58,
+      "timestamp": "2026-04-05T11:16:48.443789",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 59,
+      "timestamp": "2026-04-05T11:16:48.444882",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 60,
+      "timestamp": "2026-04-05T11:16:48.446175",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 61,
+      "timestamp": "2026-04-05T11:16:48.447395",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 62,
+      "timestamp": "2026-04-05T11:16:48.448489",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 63,
+      "timestamp": "2026-04-05T11:16:48.449762",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 64,
+      "timestamp": "2026-04-05T11:16:48.450944",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 65,
+      "timestamp": "2026-04-05T11:16:48.452035",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 66,
+      "timestamp": "2026-04-05T11:16:48.453180",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 67,
+      "timestamp": "2026-04-05T11:16:48.454275",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 68,
+      "timestamp": "2026-04-05T11:16:48.455474",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 69,
+      "timestamp": "2026-04-05T11:16:48.456508",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 70,
+      "timestamp": "2026-04-05T11:16:48.457521",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 71,
+      "timestamp": "2026-04-05T11:16:48.458623",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 72,
+      "timestamp": "2026-04-05T11:16:48.459775",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 73,
+      "timestamp": "2026-04-05T11:16:48.460905",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 74,
+      "timestamp": "2026-04-05T11:16:48.462139",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 75,
+      "timestamp": "2026-04-05T11:16:48.463233",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 76,
+      "timestamp": "2026-04-05T11:16:48.464299",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 77,
+      "timestamp": "2026-04-05T11:16:48.465334",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 78,
+      "timestamp": "2026-04-05T11:16:48.466285",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 79,
+      "timestamp": "2026-04-05T11:16:48.467242",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 80,
+      "timestamp": "2026-04-05T11:16:48.468298",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 81,
+      "timestamp": "2026-04-05T11:16:48.469336",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 82,
+      "timestamp": "2026-04-05T11:16:48.470318",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 83,
+      "timestamp": "2026-04-05T11:16:48.471287",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 84,
+      "timestamp": "2026-04-05T11:16:48.472295",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 85,
+      "timestamp": "2026-04-05T11:16:48.473264",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 86,
+      "timestamp": "2026-04-05T11:16:48.474236",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 87,
+      "timestamp": "2026-04-05T11:16:48.475257",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 88,
+      "timestamp": "2026-04-05T11:16:48.476169",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 89,
+      "timestamp": "2026-04-05T11:16:48.477326",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 90,
+      "timestamp": "2026-04-05T11:16:48.478576",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 91,
+      "timestamp": "2026-04-05T11:16:48.479688",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 92,
+      "timestamp": "2026-04-05T11:16:48.481029",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 93,
+      "timestamp": "2026-04-05T11:16:48.482075",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 94,
+      "timestamp": "2026-04-05T11:16:48.483014",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 95,
+      "timestamp": "2026-04-05T11:16:48.484037",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 96,
+      "timestamp": "2026-04-05T11:16:48.485058",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 97,
+      "timestamp": "2026-04-05T11:16:48.485989",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 98,
+      "timestamp": "2026-04-05T11:16:48.487010",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 99,
+      "timestamp": "2026-04-05T11:16:48.488039",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 100,
+      "timestamp": "2026-04-05T11:16:48.488979",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 101,
+      "timestamp": "2026-04-05T11:16:48.490010",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 102,
+      "timestamp": "2026-04-05T11:16:48.491059",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 103,
+      "timestamp": "2026-04-05T11:16:48.491978",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 104,
+      "timestamp": "2026-04-05T11:16:48.492988",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 105,
+      "timestamp": "2026-04-05T11:16:48.494490",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 106,
+      "timestamp": "2026-04-05T11:16:48.495734",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 107,
+      "timestamp": "2026-04-05T11:16:48.497663",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 108,
+      "timestamp": "2026-04-05T11:16:48.498683",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 109,
+      "timestamp": "2026-04-05T11:16:48.499748",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 110,
+      "timestamp": "2026-04-05T11:16:48.500774",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 111,
+      "timestamp": "2026-04-05T11:16:48.501806",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 112,
+      "timestamp": "2026-04-05T11:16:48.502861",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 113,
+      "timestamp": "2026-04-05T11:16:48.503928",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 114,
+      "timestamp": "2026-04-05T11:16:48.505154",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 115,
+      "timestamp": "2026-04-05T11:16:48.506153",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 116,
+      "timestamp": "2026-04-05T11:16:48.507165",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 117,
+      "timestamp": "2026-04-05T11:16:48.508144",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 118,
+      "timestamp": "2026-04-05T11:16:48.509099",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 119,
+      "timestamp": "2026-04-05T11:16:48.510655",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 120,
+      "timestamp": "2026-04-05T11:16:48.512162",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 121,
+      "timestamp": "2026-04-05T11:16:48.513174",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 122,
+      "timestamp": "2026-04-05T11:16:48.514223",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 123,
+      "timestamp": "2026-04-05T11:16:48.515155",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    },
+    {
+      "cycle": 124,
+      "timestamp": "2026-04-05T11:16:48.516191",
+      "status": "complete",
+      "metrics": {
+        "compliance_rate": 0.95,
+        "homeostasis_score": 0.88,
+        "traceability_coverage": 0.99,
+        "bootstrap_confidence": 0.85,
+        "adaptation_resilience": 0.82,
+        "provenance_overhead": 0.05,
+        "axiom_violation_rate": 0.0,
+        "policy_rollback_rate": 0.02
+      },
+      "system_health": 0.57
+    }
+  ]
+}
