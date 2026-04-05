@@ -15,6 +15,7 @@ import (
 var content embed.FS
 
 var loop *engine.FivePhaseLoop
+var broker *Broker
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
@@ -136,7 +137,7 @@ func main() {
 		panic(err)
 	}
 
-	broker := NewBroker()
+	broker = NewBroker()
 	go broker.Start()
 	go simulateTelemetry(broker)
 
@@ -146,6 +147,7 @@ func main() {
 	http.HandleFunc("/api/command", func(w http.ResponseWriter, r *http.Request) {
 		commandHandler(w, r, broker)
 	})
+	http.HandleFunc("/bootstrap", bootstrapHandler)
 	http.HandleFunc("/api/stream", broker.ServeHTTP)
 	http.HandleFunc("/", indexHandler)
 	http.ListenAndServe(":8081", nil)
