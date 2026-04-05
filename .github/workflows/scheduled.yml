@@ -40,3 +40,5 @@ jobs:
         run: bash scripts/detect-cycles.sh
       - name: Validate RULES.md sync
         run: bash scripts/validate-rules-sync.sh
+      - name: Validate MAS readiness (Tier 3 Completion)
+        run: bash scripts/validate-mas-readiness.sh
