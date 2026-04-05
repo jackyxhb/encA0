@@ -209,3 +209,58 @@ When auditing, implementing, or making design choices, add a new decision block:
 
 ---
 
+## Decision 9: Activate GitHub Actions CI/CD (Tier 2)
+
+**Date:** 2026-04-06  
+**Category:** P0-3 Verification (Collective) — Tier 2  
+**Decision:** Rename test.yml.TEMPLATE → test.yml; enable CI/CD workflows on every push/PR  
+**Rationale:**
+- All 28 tests now passing (was blocker for CI/CD)
+- Pre-commit hooks validate locally; CI/CD validates upstream
+- Early detection of broken code (before merge to master)
+- GitHub PR status checks provide visibility
+**Alternative Considered:**
+- Manual testing (no upstream validation, risky)
+- CI/CD-only (no local feedback, slower iteration)
+**Impact:**
+- Every PR shows test + linting + boundary check status
+- Broken code cannot merge to master
+- Developers get immediate feedback on GitHub
+**Reversible:** Yes (disable workflow in GitHub settings)  
+**Status:** ✅ Implemented
+
+---
+
+## Decision 10: Enhance Task Tracking in .claude.md (Tier 2)
+
+**Date:** 2026-04-06  
+**Category:** P1-7 Task Tracking  
+**Decision:** Add task tracking guidance to .claude.md linking ENCT-TASK-HIERARCHY to TaskCreate/TaskUpdate  
+**Rationale:**
+- Task hierarchy exists but not integrated with Claude Code task system
+- Phase 2 work needs continuous progress visibility
+- TaskCreate/TaskUpdate provides persistent progress tracking
+- Tasks map to ENCT-TASK-HIERARCHY rows
+**Alternative Considered:**
+- Rely on git commits (incomplete, not queryable)
+- Spreadsheet tracking (not version-controlled)
+**Impact:**
+- Clear task status visible in Claude Code
+- Progress toward Phase 2 completion tracked
+- Blockers/dependencies managed automatically
+**Reversible:** Yes (remove task tracking section from .claude.md)  
+**Status:** ✅ Implemented
+
+---
+
+## Summary: Tier 2 Progress
+
+| Item | Status | Impact |
+|------|--------|--------|
+| GitHub Actions CI/CD | ✅ Activated | Upstream verification + PR checks |
+| Task Tracking Integration | ✅ Enhanced | Progress visibility + dependency mgmt |
+| Doc Sync Validation | ⏸️ Deferred Tier 2.2 | Code structure validation |
+| Dead Code Detection | ⏸️ Deferred Tier 2.3 | Entropy fighting |
+
+**Current Tier 2 Status:** 2/4 complete (50%)
+
