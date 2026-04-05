@@ -65,6 +65,55 @@ func socraticEvaluateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+type ConsoleMessage struct {
+	Timestamp string
+	AgentName string
+	Message   string
+}
+
+func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	r.ParseForm()
+	agentID := r.FormValue("agent_id")
+	cmd := r.FormValue("command")
+
+	response := HandleCommand(agentID, cmd)
+	agent := GetAgent(agentID)
+	agentName := "Unknown"
+	if agent != nil {
+		agentName = agent.Name
+	}
+
+	msg := ConsoleMessage{
+		Timestamp: time.Now().Format("15:04:05"),
+		AgentName: agentName,
+		Message:   response,
+	}
+
+	tmpl, _ := template.ParseFS(content, "templates/console.html")
+	var buf strings.Builder
+	tmpl.Execute(&buf, msg)
+
+	b.broadcast <- SSEEvent{
+		Event: "console",
+		Data:  buf.String(),
+	}
+
+	w.WriteHeader(http.StatusAccepted)
+}
+
+func telemetryHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	b.broadcast <- SSEEvent{Event: "message", Data: "Custom Telemetry Update"}
+	w.WriteHeader(http.StatusAccepted)
+}
+
 func main() {
 	broker := NewBroker()
 	go broker.Start()
@@ -73,11 +122,10 @@ func main() {
 	http.HandleFunc("/health", healthCheckHandler)
 	http.HandleFunc("/api/socratic/start", socraticStartHandler)
 	http.HandleFunc("/api/socratic/evaluate", socraticEvaluateHandler)
-	http.HandleFunc("/api/stream", broker.ServeHTTP)
-	http.HandleFunc("/api/telemetry", func(w http.ResponseWriter, r *http.Request) {
-		// Simplified for now: just trigger a broadcast
-		telemetryHandler(w, r, broker)
+	http.HandleFunc("/api/command", func(w http.ResponseWriter, r *http.Request) {
+		commandHandler(w, r, broker)
 	})
+	http.HandleFunc("/api/stream", broker.ServeHTTP)
 	http.HandleFunc("/", indexHandler)
 	http.ListenAndServe(":8080", nil)
 }
@@ -86,21 +134,10 @@ func simulateTelemetry(b *Broker) {
 	for {
 		time.Sleep(2 * time.Second)
 		for _, ind := range CurrentIndicators {
-			// Update indicator value slightly to simulate activity
 			b.broadcast <- SSEEvent{
 				Event: fmt.Sprintf("indicator-%d", ind.ID),
 				Data:  ind.RenderHTML(),
 			}
 		}
 	}
-}
-
-func telemetryHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-	// Simplified: broadcast a custom message
-	b.broadcast <- SSEEvent{Event: "message", Data: "Custom Telemetry Update"}
-	w.WriteHeader(http.StatusAccepted)
 }

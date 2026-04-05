@@ -89,3 +89,26 @@ func TestSocraticEvaluate(t *testing.T) {
 		t.Errorf("expected HTML to contain 'Axiom 2', got: %v", body)
 	}
 }
+
+func TestSendCommand(t *testing.T) {
+	broker := NewBroker()
+	go broker.Start()
+
+	data := "agent_id=aura-1&command=/status"
+	req, err := http.NewRequest("POST", "/api/command", strings.NewReader(data))
+	if err != nil {
+		t.Fatal(err)
+	}
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	rr := httptest.NewRecorder()
+
+	mux := http.NewServeMux()
+	mux.HandleFunc("/api/command", func(w http.ResponseWriter, r *http.Request) {
+		commandHandler(w, r, broker)
+	})
+	mux.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusAccepted {
+		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusAccepted)
+	}
+}

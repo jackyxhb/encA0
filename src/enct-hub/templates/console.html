@@ -1,0 +1,16 @@
+<div class="console-entry">
+    <span class="timestamp">[{{.Timestamp}}]</span>
+    <span class="agent-id">[{{.AgentName}}]</span>
+    <span class="message">{{.Message}}</span>
+</div>
+<style>
+    .console-entry {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #333;
+        padding: 4px 0;
+    }
+    .timestamp { color: #888; }
+    .agent-id { color: #00ff00; font-weight: bold; }
+    .message { color: #ddd; margin-left: 8px; }
+</style>

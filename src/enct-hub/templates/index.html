@@ -35,6 +35,42 @@
                 </button>
             </div>
         </section>
+
+        <section id="console">
+            <h2>Virtual Console (Interactive Command-and-Control)</h2>
+            <div class="grid">
+                <div id="console-output" 
+                     sse-swap="console" 
+                     hx-swap="beforeend"
+                     style="background: #111; color: #0f0; padding: 10px; height: 300px; overflow-y: scroll; border: 1px solid #333;">
+                    <!-- Agent logs will appear here -->
+                    <div class="console-entry">System: Connected to ENCT Hub. Waiting for command...</div>
+                </div>
+                <aside>
+                    <form hx-post="/api/command" hx-swap="none" hx-on::after-request="this.reset()">
+                        <label for="agent-select">Target Agent</label>
+                        <select id="agent-select" name="agent_id">
+                            <option value="aura-1">Aura-1 (Perception)</option>
+                            <option value="nexus-7">Nexus-7 (Orchestration)</option>
+                            <option value="vortex-3">Vortex-3 (Compliance)</option>
+                        </select>
+                        <label for="command-input">Command</label>
+                        <input type="text" id="command-input" name="command" placeholder="/status, /reboot..." required>
+                        <button type="submit" class="primary">Execute Command</button>
+                    </form>
+                    <hr>
+                    <small>Available commands: <code>/status</code>, <code>/reboot</code>, <code>/axiom</code></small>
+                </aside>
+            </div>
+        </section>
     </main>
+    <script>
+        document.body.addEventListener('htmx:sseMessage', function(e) {
+            const consoleOutput = document.getElementById('console-output');
+            if (e.detail.type === 'console') {
+                consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            }
+        });
+    </script>
 </body>
 </html>
