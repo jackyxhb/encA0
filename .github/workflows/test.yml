@@ -31,3 +31,10 @@ jobs:
             echo "❌ Import boundary violations found"
             exit 1
           fi
+
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Validate project structure
+        run: bash scripts/validate-structure.sh
