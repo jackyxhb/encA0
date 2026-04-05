@@ -1,0 +1,142 @@
+# .cursorrules — ENCT v1.3 Project Rules for Cursor IDE
+
+You are working on the ENCT v1.3 (Enactive Normative Control Theory) project.
+
+## Critical Rules
+
+### 1. Folder Organization (MANDATORY)
+
+**ENCT Documentation** → Place in `/enct/` folder ONLY
+- Theory docs (ENCT-REFERENCE.md, AXIOMS.md, INDICATORS.md, VERIFICATION.md)
+- Specifications (REQUIREMENTS.md, AUTONOMY-GATES.md, POLICY-INTAKE-TEMPLATE.md)
+- Ledgers (POLICY-LEDGER.md, FAILURE-LEDGER.md)
+- Version tracking (ENCT-VERSION.md)
+- Completeness reports (PHASE-*-COMPLETION-REPORT.md)
+- Glossary (GLOSSARY.md)
+
+**Harness Engineering Documentation** → Place in `/harness/` folder ONLY
+- Audit docs (HE-SCOPE.md, HE-CLUES.md, HE-PRIORITIES.md, HE-IMPLEMENTATION-PLAN.md, AUDIT-SUMMARY.md)
+- These are development methodology docs, NOT part of deployed ENCT
+
+**Project-Level Documentation** → Place in root
+- ENCT-TASK-HIERARCHY.md (task structure)
+- RULES.md (this rule set)
+- README.md (if created)
+
+### 2. Code Organization (MANDATORY)
+
+All implementation code must be in `/src/` folder:
+
+- `/src/enct/` → ENCT engine (axioms, loop, indicators, bootstrap, verification)
+- `/src/harness/` → Harness tooling (gates, linters, wrappers) — development only, NOT shipped
+- `/src/api/` → API endpoints (Phase 4+)
+- `/src/ui/` → User interface (Phase 4+)
+- `/src/storage/` → Database & storage (Phase 4+)
+- `/src/monitoring/` → Observability (Phase 5+)
+- `/src/tests/` → All test code
+
+**NO code at root directory** (except build configs like setup.py, Makefile, docker-compose.yml)
+
+### 3. ENCT vs Harness Engineering Separation (CRITICAL)
+
+**Understand the relationship:**
+- **ENCT** = The agent product being built (what ships to users)
+- **Harness Engineering** = The development methodology for building ENCT safely (temporary, discarded)
+
+**They are orthogonal, NOT partners:**
+- Do NOT integrate HE features into ENCT at runtime
+- Do NOT have ENCT code import from `/src/harness/` code
+- HE is purely a development-time scaffolding
+- When ENCT ships, HE code is completely removed
+
+**In code:**
+- ENCT code (`/src/enct/`) is independent
+- Harness code (`/src/harness/`) is development infrastructure only
+- NO cross-imports between them
+
+### 4. File Naming (FOLLOW CONVENTION)
+
+**ENCT docs:**
+- `ENCT-*.md` (ENCT-REFERENCE.md, ENCT-VERSION.md)
+
+**Harness docs:**
+- `HE-*.md` (HE-SCOPE.md, HE-CLUES.md)
+
+**Phase reports:**
+- `PHASE-*-COMPLETION-REPORT.md`
+
+**Templates:**
+- `*-TEMPLATE.md` (POLICY-INTAKE-TEMPLATE.md)
+
+### 5. Git Commits (FOLLOW CONVENTION)
+
+Include folder context in commit messages:
+```
+"Add ENCT axiom enforcement to /src/enct/axioms/"
+"Move ENCT docs to /enct/ folder"
+"Implement linters in /src/harness/linters/"
+"Add tests to /src/tests/"
+```
+
+### 6. When Making Suggestions
+
+**For ENCT work:**
+- Suggest code placement: `/src/enct/[component]/`
+- Suggest docs placement: `/enct/`
+- Do NOT reference HE code
+
+**For Harness work:**
+- Suggest code placement: `/src/harness/[component]/`
+- Suggest docs placement: `/harness/`
+
+**Never:**
+- Suggest code at root (except configs)
+- Suggest docs at root (except project-level)
+- Mix ENCT and HE code
+- Include HE code in ENCT deployment
+
+### 7. Phase-Specific Context
+
+**Phase 1 (Design - COMPLETE):**
+- All docs in `/enct/` and `/harness/`
+- No code yet
+
+**Phase 2 (Training):**
+- Implement ENCT code in `/src/enct/`
+- Implement harness tools in `/src/harness/` (dev-time only)
+- Tests in `/src/tests/`
+
+**Phase 3 (Testing):**
+- Run verification on `/src/enct/` code
+- Test harness applied during phase
+
+**Phase 4 (Deploy):**
+- Package `/src/enct/` for deployment
+- DO NOT ship `/src/harness/` code
+- Create API/UI in `/src/api/` and `/src/ui/`
+
+**Phase 5 (Monitor):**
+- Add monitoring in `/src/monitoring/`
+- Ensure ENCT operates standalone
+
+---
+
+## Reference Documents
+
+- Full rules: See `/RULES.md` in repo
+- Task hierarchy: See `/ENCT-TASK-HIERARCHY.md`
+- ENCT theory: See `/enct/ENCT-REFERENCE.md`
+- Harness methodology: See `/harness/HE-SCOPE.md`
+
+---
+
+## Summary for Cursor
+
+This is an **ENCT agent product development** project, guided by **Harness Engineering methodology**.
+
+- Keep ENCT and HE completely separate (orthogonal, not integrated)
+- Place docs in `/enct/` or `/harness/` appropriately
+- Place code in `/src/` with subfolders by component
+- HE is temporary (used during development); ENCT is permanent (shipped to users)
+
+When in doubt, check `/RULES.md` or ask the user.
