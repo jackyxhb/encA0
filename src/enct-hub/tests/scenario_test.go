@@ -6,7 +6,6 @@ import (
 	"math/rand"
 	"os"
 	"testing"
-	"time"
 )
 
 func TestSandboxSimulator_100Cycles(t *testing.T) {

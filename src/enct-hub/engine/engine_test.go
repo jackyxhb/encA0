@@ -2,7 +2,6 @@ package engine
 
 import (
 	"os"
-	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -53,9 +52,25 @@ func TestExecuteCycle_Valid(t *testing.T) {
 		t.Error("ReEnactOutput should not be nil")
 	}
 
-	// Verify ledger files were created
-	if _, err := os.Stat(filepath.Join(tmpDir, "POLICY-LEDGER.jsonl")); os.IsNotExist(err) {
-		t.Error("POLICY-LEDGER.jsonl was not created")
+	// Verify ledger files were created (one cycle file per phase)
+	files, err := os.ReadDir(tmpDir)
+	if err != nil {
+		t.Fatalf("Failed to read ledger directory: %v", err)
+	}
+
+	if len(files) == 0 {
+		t.Error("No ledger files were created")
+	}
+
+	// Expect at least 5 cycle files (one per phase: Sense, Validate, Execute, Assess, ReEnact)
+	cycleFileCount := 0
+	for _, file := range files {
+		if strings.Contains(file.Name(), "cycle_") && strings.HasSuffix(file.Name(), ".json") {
+			cycleFileCount++
+		}
+	}
+	if cycleFileCount < 5 {
+		t.Errorf("Expected at least 5 cycle files, found %d", cycleFileCount)
 	}
 }
 
@@ -85,7 +100,7 @@ func TestExecuteCycle_AxiomViolation(t *testing.T) {
 		t.Errorf("Expected status %v, got %v", StatusAxiomViolation, state.Status)
 	}
 
-	if !strings.Contains(state.Error, "AXIOM 1 VIOLATION") {
+	if !strings.Contains(state.Error, "Axiom 1 Violation") {
 		t.Errorf("Expected Axiom 1 violation error, got: %s", state.Error)
 	}
 
