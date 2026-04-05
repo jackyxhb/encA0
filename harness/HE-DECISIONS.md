@@ -287,3 +287,59 @@ When auditing, implementing, or making design choices, add a new decision block:
 
 **Current Tier 2 Status:** 4/4 complete (100%) ✅
 
+---
+
+## Decision 12: Circular Dependency Detection (Tier 3)
+
+**Date:** 2026-04-06  
+**Category:** P3-3 Pattern Auditing  
+**Decision:** Add scripts/detect-cycles.sh to detect circular imports  
+**Rationale:**
+- Circular dependencies are architectural debt that compounds
+- Go's `go list -deps` detects cycles at compile time
+- Script prevents cycles from being committed
+- Early detection prevents refactoring hell later
+**Alternative Considered:**
+- Manual code review (doesn't scale, misses subtle cycles)
+- Post-facto cleanup (expensive when compounded)
+**Impact:**
+- Architectural patterns stay clean as code grows
+- Enables safe refactoring during Phase 3
+- Foundation for MAS scalability
+**Reversible:** Yes  
+**Status:** ✅ Implemented
+
+---
+
+## Decision 13: RULES.md Sync Validation (Tier 3)
+
+**Date:** 2026-04-06  
+**Category:** P3-2 Documentation Sync  
+**Decision:** Add scripts/validate-rules-sync.sh to ensure RULES.md matches code  
+**Rationale:**
+- Documentation naturally diverges from code over time
+- RULES.md should be source of truth, but code must match
+- Validator catches divergence early
+- Foundation for Phase 3 scalability
+**Alternative Considered:**
+- Auto-update RULES.md from code (risky, might break rules)
+- Manual sync (unreliable, high friction)
+**Impact:**
+- New developers read correct rules
+- Onboarding friction reduced
+- Code structure stays aligned with documentation
+**Reversible:** Yes  
+**Status:** ✅ Implemented
+
+---
+
+## Summary: Tier 3 Foundation Progress
+
+| Item | Status | Impact |
+|------|--------|--------|
+| Circular Dependency Detection | ✅ Implemented | Architecture pattern enforcement |
+| RULES.md Sync Validation | ✅ Implemented | Doc-code alignment |
+| MAS Readiness Planning | ⏳ Next Phase | Scale from SAS to multi-agent |
+
+**Current Tier 3 Status:** 2/3 foundation items (66%)
+
