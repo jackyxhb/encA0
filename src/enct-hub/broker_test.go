@@ -27,7 +27,7 @@ func TestBroker(t *testing.T) {
 
 	go func() {
 		time.Sleep(50 * time.Millisecond)
-		broker.broadcast <- []byte("test event")
+		broker.broadcast <- SSEEvent{Data: "test event"}
 	}()
 
 	reader := bufio.NewReader(resp.Body)

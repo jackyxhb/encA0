@@ -1,0 +1,10 @@
+<article id="socratic-content">
+    <h3>Socratic Question #{{.ID}}</h3>
+    <p>{{.Text}}</p>
+    <form hx-post="/api/socratic/evaluate" hx-target="#socratic-content" hx-swap="outerHTML">
+        <input type="hidden" name="question_id" value="{{.ID}}">
+        {{range .Options}}
+        <button type="submit" name="answer" value="{{.}}" class="secondary">{{.}}</button>
+        {{end}}
+    </form>
+</article>

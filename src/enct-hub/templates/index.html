@@ -5,10 +5,36 @@
     <title>ENCT Hub</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
 </head>
 <body>
-    <main class="container">
-        <h1>ENCT Hub</h1>
+    <main class="container" hx-ext="sse" sse-connect="/api/stream">
+        <h1>ENCT Hub v0.3.0</h1>
+        
+        <section id="indicators">
+            <h2>System Health (Quantitative Indicators)</h2>
+            <div class="grid">
+                <article>Compliance <div id="indicator-1" sse-swap="indicator-1">--</div></article>
+                <article>Homeostasis <div id="indicator-2" sse-swap="indicator-2">--</div></article>
+                <article>Traceability <div id="indicator-3" sse-swap="indicator-3">--</div></article>
+                <article>Confidence <div id="indicator-4" sse-swap="indicator-4">--</div></article>
+            </div>
+            <div class="grid">
+                <article>Resilience <div id="indicator-5" sse-swap="indicator-5">--</div></article>
+                <article>Overhead <div id="indicator-6" sse-swap="indicator-6">--</div></article>
+                <article>Violations <div id="indicator-7" sse-swap="indicator-7">--</div></article>
+                <article>Rollback <div id="indicator-8" sse-swap="indicator-8">--</div></article>
+            </div>
+        </section>
+
+        <section id="socratic">
+            <h2>Socratic Policy Intake</h2>
+            <div id="socratic-content">
+                <button hx-get="/api/socratic/start" hx-target="#socratic-content" hx-swap="outerHTML">
+                    Start Policy Bootstrap
+                </button>
+            </div>
+        </section>
     </main>
 </body>
 </html>

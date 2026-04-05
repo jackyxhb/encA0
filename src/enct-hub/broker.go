@@ -5,19 +5,24 @@ import (
 	"net/http"
 )
 
+type SSEEvent struct {
+	Event string
+	Data  string
+}
+
 type Broker struct {
-	clients    map[chan []byte]bool
-	broadcast  chan []byte
-	register   chan chan []byte
-	unregister chan chan []byte
+	clients    map[chan SSEEvent]bool
+	broadcast  chan SSEEvent
+	register   chan chan SSEEvent
+	unregister chan chan SSEEvent
 }
 
 func NewBroker() *Broker {
 	return &Broker{
-		clients:    make(map[chan []byte]bool),
-		broadcast:  make(chan []byte),
-		register:   make(chan chan []byte),
-		unregister: make(chan chan []byte),
+		clients:    make(map[chan SSEEvent]bool),
+		broadcast:  make(chan SSEEvent),
+		register:   make(chan chan SSEEvent),
+		unregister: make(chan chan SSEEvent),
 	}
 }
 
@@ -53,7 +58,7 @@ func (b *Broker) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	flusher.Flush()
 
-	clientChan := make(chan []byte)
+	clientChan := make(chan SSEEvent)
 	b.register <- clientChan
 
 	notify := r.Context().Done()
@@ -68,7 +73,10 @@ func (b *Broker) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if !ok {
 			break
 		}
-		fmt.Fprintf(w, "data: %s\n\n", event)
+		if event.Event != "" {
+			fmt.Fprintf(w, "event: %s\n", event.Event)
+		}
+		fmt.Fprintf(w, "data: %s\n\n", event.Data)
 		flusher.Flush()
 	}
 }
