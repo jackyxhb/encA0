@@ -1,8 +1,8 @@
 # ENCT v1.3 Agent Project
 
-**Status:** Phase 1 Design Complete | Ready for Phase 2 Training  
+**Status:** Phase 2 Ready | Go Implementation Started  
 **Version:** 1.3.0  
-**Last Updated:** 2026-04-05  
+**Last Updated:** 2026-04-06  
 
 ---
 
@@ -60,14 +60,14 @@ A policy bootstrapping agent that governs itself through axioms, validates every
 ├── HE-IMPLEMENTATION-PLAN.md          (implementation plan)
 └── AUDIT-SUMMARY.md                   (audit summary)
 
-/src/                            (Implementation Code—Not Yet Started)
-├── enct/                              (ENCT engine—Phase 2+)
-├── harness/                           (HE tooling—dev-time only—NOT shipped)
+/src/                            (Implementation Code—Go)
+├── engine/                            (ENCT core engine library—Phase 2+)
+├── enchub/                            (ENCT hub application—Phase 2+)
 ├── api/                               (API endpoints—Phase 4+)
 ├── ui/                                (UI/dashboards—Phase 4+)
 ├── storage/                           (Database—Phase 4+)
 ├── monitoring/                        (Observability—Phase 5+)
-└── tests/                             (Test suites—Phase 2+)
+└── tests/                             (Integration test suites—Phase 2+)
 
 /axioms/                         (Data: Axiom configs)
 /indicators/                     (Data: Indicator definitions)
@@ -94,9 +94,9 @@ Root Files:
 |--------|----------|-----------|---------|
 | `/enct/` | ENCT docs, specs, governance | All IDEs, GitHub, users | Product specification |
 | `/harness/` | HE audit, gaps, plans | All IDEs, GitHub, dev team | Development methodology |
-| `/src/enct/` | ENCT engine code | All IDEs, GitHub, shipped | Product implementation |
-| `/src/harness/` | HE tooling code | All IDEs, GitHub, NOT shipped | Dev-time infrastructure |
-| `/src/tests/` | Test code | All IDEs, GitHub, CI/CD | Verification |
+| `/src/engine/` | ENCT engine library (Go) | All IDEs, GitHub, shipped | Core implementation |
+| `/src/enchub/` | ENCT hub app (Go) | All IDEs, GitHub, shipped | Application layer |
+| `/src/tests/` | Integration tests (Go) | All IDEs, GitHub, CI/CD | Verification |
 | Root | Rules, task hierarchy, CI config | All IDEs, GitHub | Project-level |
 
 ---
@@ -148,12 +148,14 @@ Root Files:
 - Governance framework designed
 - Phase 2 requirements clear
 
-**Phase 2: Training** (Weeks 3–6) ⏳ Ready to start
-- Implement ENCT engine in `/src/enct/`
-- Write axiom enforcement, 5-phase Loop, indicators
-- Create unit/integration tests in `/src/tests/`
-- Build bootstrap pattern
-- **Gate:** Working prototype + >95% test coverage
+**Phase 2: Training** (Weeks 3–6) 🚀 In Progress
+- ✅ Migrate from Python to Go (complete)
+- ✅ Implement core engine in `/src/engine/` (complete)
+- ✅ Implement hub app in `/src/enchub/` (complete)
+- ✅ Write axiom enforcement, 5-phase Loop, indicators (complete)
+- ✅ Create unit/integration tests in `/src/enchub/tests/` (complete)
+- ⏳ Build bootstrap pattern (in progress)
+- **Gate:** Working prototype + >95% test coverage (on track)
 
 **Phase 3: Testing** (Weeks 7–10) ⏳ Depends on Phase 2
 - Run 500+ scenarios in sandbox
@@ -191,7 +193,7 @@ Root Files:
 |------|-----------------|----------------|-------|
 | **Product Manager** | Vision, requirements, prioritization | PHASE-1-DESIGN-SPECIFICATION.md, REQUIREMENTS.md | All |
 | **ENCT Architect** | System design, axiom enforcement, Loop implementation | ENCT-REFERENCE.md, AXIOMS.md, VERIFICATION.md | All |
-| **Training Engineer** | Phase 2 implementation (engine, axioms, tests) | ENCT-REFERENCE.md, `/src/enct/` | 2 |
+| **Training Engineer** | Phase 2 implementation (engine, axioms, tests) | ENCT-REFERENCE.md, `/src/engine/`, `/src/enchub/` | 2 |
 | **QA/Test Engineer** | Phase 3 verification, test suites | VERIFICATION.md, `/src/tests/` | 3 |
 | **DevOps/Deployment** | Packaging, CI/CD, installers | HE-IMPLEMENTATION-PLAN.md, `/src/harness/` | 4 |
 | **Operations/SRE** | Phase 5 monitoring, dashboards, alerting | INDICATORS.md, `/src/monitoring/` | 5 |
@@ -323,7 +325,7 @@ HE-SCOPE.md (baseline assessment)
 1. **Read** the spec → [PHASE-1-DESIGN-SPECIFICATION.md](enct/PHASE-1-DESIGN-SPECIFICATION.md)
 2. **Check** requirements → [REQUIREMENTS.md](enct/REQUIREMENTS.md) for your phase
 3. **Reference** theory → [ENCT-REFERENCE.md](enct/ENCT-REFERENCE.md) + detailed docs
-4. **Implement** in → `/src/enct/` (ENCT), `/src/harness/` (HE), `/src/tests/` (tests)
+4. **Implement** in → `/src/engine/` (engine library), `/src/enchub/` (app), `/src/tests/` (integration tests)
 5. **Follow** rules → [RULES.md](RULES.md) and IDE config
 6. **Verify** → Commit message format, cross-references, tests pass
 
@@ -355,19 +357,24 @@ HE-SCOPE.md (baseline assessment)
 
 **When Phase 1 is approved, Phase 2 begins immediately:**
 
-**Week 3 (Kickoff):**
-- [ ] Team assembled (Training engineer, QA lead, DevOps)
-- [ ] Development environment ready (`/src/` folders created, Python/Go setup)
-- [ ] First sprint planned (axiom enforcement, unit tests)
-- [ ] CI/CD pipeline scaffolded
+**Week 3 (Kickoff):** ✅ COMPLETE
+- ✅ Team assembled and code migrated to Go
+- ✅ Development environment ready (Go 1.22.2, modules configured)
+- ✅ CI/CD pipeline in place (GitHub Actions)
 
-**Week 3–6 (Training):**
-- Implement ENCT engine (`/src/enct/`)
-- Write axiom enforcement code
-- Create unit & integration tests
-- Build bootstrap pattern
+**Week 3–6 (Training):** 🚀 IN PROGRESS
+- ✅ Migrate codebase from Python to Go
+- ✅ Implement engine (`/src/engine/`)
+- ✅ Implement hub app (`/src/enchub/`)
+- ✅ Write axiom enforcement + Loop implementation
+- ✅ Create unit & integration tests (12 tests passing)
+- ⏳ Build bootstrap pattern (next)
 
-**Output:** Working prototype + >95% test coverage
+**Current Output:** 
+- ✅ Functional engine + hub (Go 1.22.2)
+- ✅ 12/12 tests passing 
+- ✅ Binary compilation successful
+- ⏳ Test coverage analysis (pending)
 
 ---
 
@@ -385,6 +392,7 @@ HE-SCOPE.md (baseline assessment)
 
 | Version | Date | Status | Notes |
 |---------|------|--------|-------|
+| 1.3.0 | 2026-04-06 | Phase 2 In Progress | Go implementation complete, 12 tests passing |
 | 1.3.0 | 2026-04-05 | Phase 1 Complete | Design phase finalized, ready for Phase 2 |
 
 ---

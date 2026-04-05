@@ -10,11 +10,18 @@ ERRORS=0
 
 # Check 1: /src/ folder exists and has expected subdirectories
 echo "✓ Checking /src/ structure..."
-if [ ! -d "src/enct-hub" ]; then
-  echo "  ❌ FAIL: src/enct-hub/ not found"
+if [ ! -d "src/engine" ]; then
+  echo "  ❌ FAIL: src/engine/ not found"
   ERRORS=$((ERRORS + 1))
 else
-  echo "  ✅ src/enct-hub/ exists"
+  echo "  ✅ src/engine/ exists"
+fi
+
+if [ ! -d "src/enchub" ]; then
+  echo "  ❌ FAIL: src/enchub/ not found"
+  ERRORS=$((ERRORS + 1))
+else
+  echo "  ✅ src/enchub/ exists"
 fi
 
 # Check 2: No code at root (except configs)
@@ -61,11 +68,11 @@ else
   echo "  ✅ AGENTS.md exists"
 fi
 
-# Check 5: Tests in /src/enct-hub/tests/ and/or /src/tests/
+# Check 5: Tests in /src/engine/, /src/enchub/tests/, and/or /src/tests/
 echo "✓ Checking test placement..."
-TEST_COUNT=$(find src/enct-hub/tests src/tests -name "*_test.go" 2>/dev/null | wc -l)
+TEST_COUNT=$(find src/engine src/enchub/tests src/tests -name "*_test.go" 2>/dev/null | wc -l)
 if [ "$TEST_COUNT" -eq 0 ]; then
-  echo "  ❌ FAIL: No tests found in /src/enct-hub/tests/ or /src/tests/"
+  echo "  ❌ FAIL: No tests found in /src/engine/, /src/enchub/tests/, or /src/tests/"
   ERRORS=$((ERRORS + 1))
 else
   echo "  ✅ Found $TEST_COUNT test files"
