@@ -1,7 +1,7 @@
 package main
 
 import (
-	"enct-hub/engine"
+	"engine"
 	"net/http"
 	"net/http/httptest"
 	"os"

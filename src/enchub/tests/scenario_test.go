@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"enct-hub/engine"
+	"engine"
 	"fmt"
 	"math/rand"
 	"os"

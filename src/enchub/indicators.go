@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"enct-hub/engine"
+	"engine"
 )
 
 type Indicator struct {

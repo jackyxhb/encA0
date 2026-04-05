@@ -1,4 +1,4 @@
-module enct-hub
+module engine
 
 go 1.22.2
 
