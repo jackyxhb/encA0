@@ -46,8 +46,6 @@ func (l *FivePhaseLoop) ExecuteCycle(policyRequest map[string]interface{}, envSt
 		l.Calculator.UpdateState(state)
 	}()
 
-	fmt.Printf("[%s] Starting Sense phase\n", cycleID)
-
 	// Phase 1: Sense (observation complete)
 	state.CurrentPhase = PhaseSense
 	if _, err := l.Ledger.WriteEntry(state); err != nil {
@@ -62,8 +60,6 @@ func (l *FivePhaseLoop) ExecuteCycle(policyRequest map[string]interface{}, envSt
 	if err := l.Enforcer.ValidateAxiom1(policy); err != nil {
 		return state, l.handleError(state, err)
 	}
-
-	fmt.Printf("[%s] Starting Validate phase\n", cycleID)
 
 	// Axiom 2: Determinism (Simulated bounds for now)
 	valOutput := &ValidateOutput{

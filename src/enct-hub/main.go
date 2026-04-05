@@ -86,10 +86,8 @@ func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
 	agentID := r.FormValue("agent_id")
 	cmd := r.FormValue("command")
 
-	fmt.Printf("Received command from %s: %s\n", agentID, cmd)
 	// 1. Run real ENCT cycle
 	state, err := loop.ExecuteCycle(map[string]interface{}{"agent_id": agentID, "command": cmd}, map[string]interface{}{"env": "production"})
-	fmt.Printf("Cycle finished with status: %s\n", state.Status)
 	
 	agent := GetAgent(agentID)
 	agentName := "Unknown"
