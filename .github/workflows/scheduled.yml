@@ -1,0 +1,29 @@
+# Scheduled Maintenance Jobs (Tier 2.3 & 3)
+# Runs on a schedule to detect entropy and prevent bit rot
+
+name: Scheduled Maintenance
+
+on:
+  schedule:
+    # Every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+
+jobs:
+  dead-code:
+    runs-on: ubuntu-latest
+    name: Dead Code Detection
+    steps:
+      - uses: actions/checkout@v3
+      - name: Scan for dead code patterns
+        run: bash scripts/detect-dead-code.sh
+      - name: Report findings
+        if: always()
+        run: echo "✅ Weekly dead code scan complete. Check log for warnings."
+
+  structure:
+    runs-on: ubuntu-latest
+    name: Structure Validation
+    steps:
+      - uses: actions/checkout@v3
+      - name: Validate project structure
+        run: bash scripts/validate-structure.sh

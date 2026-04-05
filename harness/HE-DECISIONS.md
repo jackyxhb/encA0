@@ -253,14 +253,37 @@ When auditing, implementing, or making design choices, add a new decision block:
 
 ---
 
+## Decision 11: Dead Code Detection (Tier 2.3)
+
+**Date:** 2026-04-06  
+**Category:** P3-1 Scheduled Cleanups  
+**Decision:** Add scripts/detect-dead-code.sh + scheduled GitHub Actions job (weekly)  
+**Rationale:**
+- Code naturally accumulates dead patterns over time (empty stubs, orphaned tests, commented code)
+- Weekly scan prevents entropy from growing unchecked
+- Informational warnings (exit code 0) don't block PRs
+- Low overhead (runs once/week, ~10 seconds)
+**Alternative Considered:**
+- Manual code review (unreliable, doesn't scale)
+- Monthly scan (too infrequent, entropy compounds)
+**Impact:**
+- Orphaned tests detected early
+- Empty stubs identified before they accumulate
+- Commented code flagged for review
+- Weekly reports remind team to maintain cleanliness
+**Reversible:** Yes (disable workflow)  
+**Status:** ✅ Implemented
+
+---
+
 ## Summary: Tier 2 Progress
 
 | Item | Status | Impact |
 |------|--------|--------|
 | GitHub Actions CI/CD | ✅ Activated | Upstream verification + PR checks |
 | Task Tracking Integration | ✅ Enhanced | Progress visibility + dependency mgmt |
-| Doc Sync Validation | ⏸️ Deferred Tier 2.2 | Code structure validation |
-| Dead Code Detection | ⏸️ Deferred Tier 2.3 | Entropy fighting |
+| Doc Sync Validation | ✅ Implemented | Code structure validation |
+| Dead Code Detection | ✅ Implemented | Weekly entropy fighting |
 
-**Current Tier 2 Status:** 2/4 complete (50%)
+**Current Tier 2 Status:** 4/4 complete (100%) ✅
 
