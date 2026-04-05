@@ -1,0 +1,66 @@
+#!/bin/bash
+set -euo pipefail
+
+POLICY_ID=""
+DOMAIN=""
+POLICY_TEXT="default policy text"
+SERVER="${ENCT_SERVER:-http://localhost:8081}"
+DRY_RUN=false
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --policy-id) POLICY_ID="$2"; shift 2 ;;
+    --domain) DOMAIN="$2"; shift 2 ;;
+    --policy-text) POLICY_TEXT="$2"; shift 2 ;;
+    --server) SERVER="$2"; shift 2 ;;
+    --dry-run) DRY_RUN=true; shift ;;
+    --help) echo "Usage: enct-bootstrap --policy-id <id> --domain <domain> [--policy-text <text>] [--server <url>] [--dry-run]"; exit 0 ;;
+    *) echo "Unknown option: $1"; exit 1 ;;
+  esac
+done
+
+if [ -z "$POLICY_ID" ] || [ -z "$DOMAIN" ]; then
+  echo "Error: --policy-id and --domain are required"
+  echo "Usage: enct-bootstrap --policy-id <id> --domain <domain> [--policy-text <text>] [--server <url>] [--dry-run]"
+  exit 1
+fi
+
+if [ "$DRY_RUN" = true ]; then
+  echo "DRY RUN: Would POST policy_id=$POLICY_ID domain=$DOMAIN to $SERVER/bootstrap"
+  exit 0
+fi
+
+PAYLOAD=$(cat <<EOF
+{
+  "policy_id": "$POLICY_ID",
+  "domain": "$DOMAIN",
+  "policy_text": "$POLICY_TEXT"
+}
+EOF
+)
+
+RESPONSE=$(curl -s -X POST \
+  -H 'Content-Type: application/json' \
+  -d "$PAYLOAD" \
+  -w '\n%{http_code}' \
+  "$SERVER/bootstrap" 2>/dev/null || echo "")
+
+HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+BODY=$(echo "$RESPONSE" | head -n -1)
+
+if ! echo "$HTTP_CODE" | grep -qE '^[0-9]{3}$'; then
+  echo "Error: Failed to connect to server at $SERVER"
+  exit 2
+fi
+
+STATUS=$(echo "$BODY" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('status',''))" 2>/dev/null || echo "")
+CONFIDENCE=$(echo "$BODY" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('confidence',0))" 2>/dev/null || echo "0")
+CYCLE_ID=$(echo "$BODY" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('cycle_id',''))" 2>/dev/null || echo "")
+
+echo "Bootstrap result: $STATUS | confidence: $CONFIDENCE | cycle_id: $CYCLE_ID"
+
+if echo "$HTTP_CODE" | grep -qE '^(200|202)$'; then
+  exit 0
+else
+  exit 1
+fi

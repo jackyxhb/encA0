@@ -1,0 +1,72 @@
+#!/bin/bash
+set -euo pipefail
+
+MODE="${1:-suite}"
+SERVER="${ENCT_SERVER:-http://localhost:8081}"
+COVERAGE=false
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --mode) MODE="$2"; shift 2 ;;
+    --server) SERVER="$2"; shift 2 ;;
+    --coverage) COVERAGE=true; shift ;;
+    --help) echo "Usage: enct-verify [--mode suite|endpoint] [--server <url>] [--coverage]"; exit 0 ;;
+    *) shift ;;
+  esac
+done
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+if [ "$MODE" = "suite" ]; then
+  echo "Running test suite..."
+  cd "$PROJECT_ROOT/src/engine"
+  if [ "$COVERAGE" = true ]; then
+    go test -cover ./...
+  else
+    go test -v ./...
+  fi
+  ENGINE_PASS=$?
+
+  cd "$PROJECT_ROOT/src/enchub"
+  go test -v ./...
+  ENCHUB_PASS=$?
+
+  if [ $ENGINE_PASS -eq 0 ] && [ $ENCHUB_PASS -eq 0 ]; then
+    echo "✓ All tests passed"
+    exit 0
+  else
+    echo "✗ Some tests failed"
+    exit 1
+  fi
+
+elif [ "$MODE" = "endpoint" ]; then
+  echo "Verifying endpoint..."
+
+  # Health check
+  HEALTH=$(curl -s "$SERVER/health" || echo "ERROR")
+  if [ "$HEALTH" != "OK" ]; then
+    echo "Endpoint verification: FAIL - health check failed"
+    exit 1
+  fi
+
+  # Bootstrap check
+  BOOTSTRAP=$(curl -s -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{"policy_id":"verify_test","domain":"auth","policy_text":"test"}' \
+    -w '%{http_code}' \
+    "$SERVER/bootstrap" 2>/dev/null || echo "0")
+
+  HTTP_CODE=$(echo "$BOOTSTRAP" | tail -c 4)
+  if echo "$HTTP_CODE" | grep -qE '^(200|202|422)$'; then
+    echo "Endpoint verification: PASS"
+    exit 0
+  else
+    echo "Endpoint verification: FAIL - bootstrap returned $HTTP_CODE"
+    exit 1
+  fi
+
+else
+  echo "Unknown mode: $MODE"
+  exit 1
+fi

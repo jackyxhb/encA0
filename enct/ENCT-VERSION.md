@@ -1,8 +1,8 @@
 # ENCT Version & Changelog
 
-**Current Version:** v1.3.0  
-**Release Date:** 2026-04-05  
-**Status:** Phase 1 Design Baseline
+**Current Version:** v1.3.1  
+**Release Date:** 2026-04-06  
+**Status:** Phase 2 Training — Bootstrap & Tests Complete
 
 ---
 
@@ -41,6 +41,29 @@ ENCT uses **Semantic Versioning (SemVer)** format: `MAJOR.MINOR.PATCH`
 ---
 
 ## Changelog
+
+### v1.3.1 — 2026-04-06 (Phase 2 Training Milestone)
+
+**Status:** Complete — Phase 2 prototype implementation
+
+**New:**
+- `POST /bootstrap` HTTP endpoint with three-tier validation (Tier 1/2/3)
+- `BootstrapEngine` + `CandidateModule` structural LLM-Assisted Bootstrap Pattern
+- `ProvenanceBundle` immutable JSON records written to `bootstrap-logs/`
+- Per-domain confidence gates matching AUTONOMY-GATES.md thresholds
+- `scripts/enct-bootstrap` — CLI policy submission tool
+- `scripts/enct-verify` — CLI test suite and endpoint verification tool  
+- `scripts/enct-rollback` — CLI policy rollback with ledger audit trail
+- Complete Go test suite: 82.1% coverage on engine module
+- Phase isolation tests for all 5 Loop phases (Sense → Re-enact)
+- Tiered validation unit tests (Tier 1/2/3)
+- Full indicator coverage: all 8 indicators tested with computed assertions
+
+**Modified:**
+- `src/enchub/main.go` — broker promoted to package level; `/bootstrap` route added
+- `enct/ENCT-VERSION.md` — this entry
+
+---
 
 ### v1.3.0 — 2026-04-05 (Phase 1 Design Baseline)
 

@@ -1,0 +1,87 @@
+#!/bin/bash
+set -euo pipefail
+
+ACTION="list"
+LAST_N=5
+SERVER="${ENCT_SERVER:-http://localhost:8081}"
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --list) ACTION="list"; shift ;;
+    --rollback) ACTION="rollback"; shift ;;
+    --last) LAST_N="$2"; shift 2 ;;
+    --server) SERVER="$2"; shift 2 ;;
+    --help) echo "Usage: enct-rollback [--list|--rollback] [--last N] [--server <url>]"; exit 0 ;;
+    *) shift ;;
+  esac
+done
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+BOOTSTRAP_LOGS="$PROJECT_ROOT/bootstrap-logs"
+
+if [ "$ACTION" = "list" ]; then
+  echo "Recent bootstrap entries:"
+  if [ ! -d "$BOOTSTRAP_LOGS" ]; then
+    echo "No bootstrap records found in bootstrap-logs/"
+    exit 0
+  fi
+
+  count=0
+  for file in $(ls -t "$BOOTSTRAP_LOGS"/provenance_*.json 2>/dev/null | head -n "$LAST_N"); do
+    TIMESTAMP=$(stat -f "%SB" -t "%Y-%m-%d %H:%M:%S" "$file" 2>/dev/null || echo "unknown")
+    POLICY_ID=$(grep -o '"policy_id":"[^"]*"' "$file" | cut -d'"' -f4)
+    DOMAIN=$(grep -o '"domain":"[^"]*"' "$file" | cut -d'"' -f4)
+    STATUS=$(grep -o '"decision":"[^"]*"' "$file" | cut -d'"' -f4)
+    CONFIDENCE=$(grep -o '"confidence":[0-9.]*' "$file" | cut -d':' -f2)
+
+    echo "$TIMESTAMP | policy_id=$POLICY_ID | domain=$DOMAIN | status=$STATUS | confidence=$CONFIDENCE"
+    count=$((count + 1))
+  done
+
+  if [ $count -eq 0 ]; then
+    echo "No bootstrap records found in bootstrap-logs/"
+  fi
+
+elif [ "$ACTION" = "rollback" ]; then
+  echo "Rolling back last $LAST_N bootstrap entries..."
+  if [ ! -d "$BOOTSTRAP_LOGS" ]; then
+    echo "Error: No bootstrap records found"
+    exit 1
+  fi
+
+  count=0
+  for file in $(ls -t "$BOOTSTRAP_LOGS"/provenance_*.json 2>/dev/null | head -n "$LAST_N"); do
+    POLICY_ID=$(grep -o '"policy_id":"[^"]*"' "$file" | cut -d'"' -f4)
+    DOMAIN=$(grep -o '"domain":"[^"]*"' "$file" | cut -d'"' -f4)
+
+    PAYLOAD=$(cat <<EOF
+{
+  "policy_id": "${POLICY_ID}_rollback",
+  "domain": "$DOMAIN",
+  "policy_text": "rollback: revert to prior version"
+}
+EOF
+)
+
+    HTTP_CODE=$(curl -s -X POST \
+      -H 'Content-Type: application/json' \
+      -d "$PAYLOAD" \
+      -w '%{http_code}' \
+      -o /dev/null \
+      "$SERVER/bootstrap" 2>/dev/null || echo "000")
+
+    if echo "$HTTP_CODE" | grep -qE '^(200|202)$'; then
+      echo "✓ Rolled back $POLICY_ID"
+      count=$((count + 1))
+    else
+      echo "✗ Rollback failed for $POLICY_ID (HTTP $HTTP_CODE)"
+    fi
+  done
+
+  if [ $count -eq $LAST_N ]; then
+    exit 0
+  else
+    exit 1
+  fi
+fi
