@@ -1,0 +1,33 @@
+# GitHub Actions Test Workflow (Tier 2 — ACTIVE)
+#
+# Runs automated tests, linting, and boundary checks on every push and PR
+# Activated: 2026-04-06 (all tests passing, ready for upstream verification)
+# See: /harness/HE-DECISIONS.md (Decision 8)
+
+name: Tests & Enforcement
+
+on:
+  push:
+    branches: [master, "feat/*"]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.26'
+      - name: Run tests
+        run: cd src/enct-hub && go test -v ./...
+      - name: Run linter
+        run: cd src/enct-hub && go vet ./...
+      - name: Check import boundaries
+        run: |
+          VIOLATIONS=$(find ./src/enct-hub -name "*.go" ! -name "*_test.go" -exec grep -l "harness\|/src/harness" {} \; | wc -l)
+          if [ $VIOLATIONS -gt 0 ]; then
+            echo "❌ Import boundary violations found"
+            exit 1
+          fi
