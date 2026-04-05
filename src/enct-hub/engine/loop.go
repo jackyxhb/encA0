@@ -56,7 +56,7 @@ func (l *FivePhaseLoop) ExecuteCycle(policyRequest map[string]interface{}, envSt
 	state.CurrentPhase = PhaseValidate
 	policy, _ := policyRequest["command"].(string)
 	
-	// Axiom 1: Immutability
+	// Axiom 1: Immutability (Action cannot modify axioms)
 	if err := l.Enforcer.ValidateAxiom1(policy); err != nil {
 		return state, l.handleError(state, err)
 	}

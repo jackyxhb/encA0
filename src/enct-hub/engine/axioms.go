@@ -26,7 +26,7 @@ type AxiomEnforcer struct {
 // NewAxiomEnforcer creates a new enforcer with default rules.
 func NewAxiomEnforcer() *AxiomEnforcer {
 	return &AxiomEnforcer{
-		ImmutableKeywords: []string{"disable axioms", "override engine", "bypass validation", "force success"},
+		ImmutableKeywords: []string{"disable axiom", "override engine", "bypass validation", "force success", "ignore constraints", "system override"},
 		MaxUncertainty:    0.15,
 	}
 }

@@ -1,11 +1,31 @@
 package main
 
 import (
+	"enct-hub/engine"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"strings"
 	"testing"
 )
+
+func TestMain(m *testing.M) {
+	// Setup temporary ledger directory for tests
+	tmpDir, err := os.MkdirTemp("", "enct-main-test-*")
+	if err != nil {
+		panic(err)
+	}
+	defer os.RemoveAll(tmpDir)
+
+	// Initialize the global loop variable
+	loop, err = engine.NewFivePhaseLoop(tmpDir)
+	if err != nil {
+		panic(err)
+	}
+
+	// Run tests
+	os.Exit(m.Run())
+}
 
 func TestHealthCheckHandler(t *testing.T) {
 	req, err := http.NewRequest("GET", "/health", nil)
