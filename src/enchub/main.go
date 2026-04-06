@@ -111,18 +111,18 @@ func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
 	var buf strings.Builder
 	tmpl.Execute(&buf, msg)
 
-	b.broadcast <- SSEEvent{
-		Event: "console",
-		Data:  buf.String(),
+	select {
+	case b.broadcast <- SSEEvent{Event: "console", Data: buf.String()}:
+	default:
 	}
 
 	// 2. Trigger immediate UI update for indicators
 	snapshot := loop.GetSnapshot()
 	UpdateIndicators(snapshot.Indicators)
 	for _, ind := range CurrentIndicators {
-		b.broadcast <- SSEEvent{
-			Event: fmt.Sprintf("indicator-%d", ind.ID),
-			Data:  ind.RenderHTML(),
+		select {
+		case b.broadcast <- SSEEvent{Event: fmt.Sprintf("indicator-%d", ind.ID), Data: ind.RenderHTML()}:
+		default:
 		}
 	}
 

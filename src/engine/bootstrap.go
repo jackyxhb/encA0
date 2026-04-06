@@ -117,6 +117,24 @@ func (b *BootstrapEngine) RunBootstrap(req BootstrapRequest) (BootstrapResult, e
 		result.Tier1Result = "fail"
 		result.Status = "rejected"
 		result.RejectedReason = tier1.Reason
+		// Write provenance even for Tier 1 rejection
+		bundle := ProvenanceBundle{
+			PolicyID:       req.PolicyID,
+			Domain:         req.Domain,
+			CycleID:        fmt.Sprintf("rejected-t1-%d", time.Now().UnixNano()),
+			Timestamp:      result.Timestamp,
+			ENCtVersion:    result.ENCtVersion,
+			AxiomVersions:  result.AxiomVersions,
+			Tier1:          tier1,
+			Decision:       result.Status,
+			RejectedReason: result.RejectedReason,
+		}
+		provPath, err := b.writeProvenance(bundle)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "warning: provenance write failed: %v\n", err)
+		} else {
+			result.ProvenanceFile = filepath.Base(provPath)
+		}
 		return result, nil
 	}
 
@@ -128,6 +146,25 @@ func (b *BootstrapEngine) RunBootstrap(req BootstrapRequest) (BootstrapResult, e
 		result.Tier2Result = "fail"
 		result.Status = "rejected"
 		result.RejectedReason = tier2.Reason
+		// Write provenance even for Tier 2 rejection
+		bundle := ProvenanceBundle{
+			PolicyID:       req.PolicyID,
+			Domain:         req.Domain,
+			CycleID:        fmt.Sprintf("rejected-t2-%d", time.Now().UnixNano()),
+			Timestamp:      result.Timestamp,
+			ENCtVersion:    result.ENCtVersion,
+			AxiomVersions:  result.AxiomVersions,
+			Tier1:          tier1,
+			Tier2:          tier2,
+			Decision:       result.Status,
+			RejectedReason: result.RejectedReason,
+		}
+		provPath, err := b.writeProvenance(bundle)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "warning: provenance write failed: %v\n", err)
+		} else {
+			result.ProvenanceFile = filepath.Base(provPath)
+		}
 		return result, nil
 	}
 

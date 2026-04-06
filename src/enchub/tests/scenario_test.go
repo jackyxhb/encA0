@@ -28,7 +28,7 @@ func TestSandboxSimulator_100Cycles(t *testing.T) {
 		t.Fatalf("Failed to create loop: %v", err)
 	}
 
-	const numCycles = 100
+	const numCycles = 500
 	successCount := 0
 	violationCount := 0
 
@@ -70,9 +70,26 @@ func TestSandboxSimulator_100Cycles(t *testing.T) {
 		t.Error("No successful cycles recorded in simulation")
 	}
 
-	// Final snapshot check
+	// Final snapshot check with Phase 3 threshold assertions
 	snapshot := l.GetSnapshot()
-	if snapshot.Indicators[engine.AdaptationResilience] < 0.8 {
-		t.Errorf("System resilience too low: %f", snapshot.Indicators[engine.AdaptationResilience])
+
+	// Compliance Rate >= 0.99
+	if snapshot.Indicators[engine.ComplianceRate] < 0.99 {
+		t.Errorf("Compliance rate below threshold: %f (expected >= 0.99)", snapshot.Indicators[engine.ComplianceRate])
+	}
+
+	// Traceability Coverage >= 1.0 (perfect traceability)
+	if snapshot.Indicators[engine.TraceabilityCoverage] < 1.0 {
+		t.Errorf("Traceability coverage below perfect: %f (expected = 1.0)", snapshot.Indicators[engine.TraceabilityCoverage])
+	}
+
+	// Homeostasis Score >= 0.85 (Lyapunov-style stability)
+	if snapshot.Indicators[engine.HomeostasisScore] < 0.85 {
+		t.Errorf("Homeostasis score below threshold: %f (expected >= 0.85)", snapshot.Indicators[engine.HomeostasisScore])
+	}
+
+	// Adaptation Resilience >= 0.85
+	if snapshot.Indicators[engine.AdaptationResilience] < 0.85 {
+		t.Errorf("System resilience too low: %f (expected >= 0.85)", snapshot.Indicators[engine.AdaptationResilience])
 	}
 }

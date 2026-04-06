@@ -49,7 +49,7 @@ func (l *FivePhaseLoop) ExecuteCycle(policyRequest map[string]interface{}, envSt
 	// Phase 1: Sense (observation complete)
 	state.CurrentPhase = PhaseSense
 	if _, err := l.Ledger.WriteEntry(state); err != nil {
-		return nil, l.handleError(state, err)
+		return state, l.handleError(state, err)
 	}
 
 	// Phase 2: Validate
@@ -66,6 +66,21 @@ func (l *FivePhaseLoop) ExecuteCycle(policyRequest map[string]interface{}, envSt
 	}
 
 	// Axiom 2: Determinism (Simulated bounds for now)
+	// Check for dynamic constraint overrides (for testing); fall back to defaults
+	constraints := map[string]bool{
+		"immutability":   true,
+		"determinism":    true,
+		"enforceability": true,
+	}
+	if overrides, ok := policyRequest["constraints"].(map[string]interface{}); ok {
+		// Convert map[string]interface{} to map[string]bool
+		for k, v := range overrides {
+			if boolVal, ok := v.(bool); ok {
+				constraints[k] = boolVal
+			}
+		}
+	}
+
 	valOutput := &ValidateOutput{
 		Timestamp:  time.Now(),
 		Confidence: 0.90,
@@ -74,11 +89,7 @@ func (l *FivePhaseLoop) ExecuteCycle(policyRequest map[string]interface{}, envSt
 			EpistemicUpper: 0.95,
 			Aleatoric:      0.02,
 		},
-		ConstraintChecks: map[string]bool{
-			"immutability":   true,
-			"determinism":    true,
-			"enforceability": true,
-		},
+		ConstraintChecks: constraints,
 		Passed: true,
 	}
 

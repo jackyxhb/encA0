@@ -158,4 +158,15 @@ func (c *IndicatorCalculator) UpdateState(state *CycleState) {
 		// Simulate ledger overhead (10ms per log)
 		c.TotalLedgerLatency += 10 * time.Millisecond
 	}
+
+	// Update CurrentStability as rolling ratio of compliant actions
+	if c.TotalActions > 0 {
+		stability := float64(c.CompliantActions) / float64(c.TotalActions)
+		// Clamp to [0, TargetStability]
+		if stability > c.TargetStability {
+			c.CurrentStability = c.TargetStability
+		} else {
+			c.CurrentStability = stability
+		}
+	}
 }

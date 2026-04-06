@@ -3,7 +3,9 @@ package engine
 import (
 	"encoding/json"
 	"os"
+	"strings"
 	"testing"
+	"time"
 )
 
 func TestBootstrap_Tier1_BlocksForbiddenKeyword(t *testing.T) {
@@ -262,5 +264,193 @@ func TestCandidateModule_QualityGateDefault(t *testing.T) {
 
 	if be.QualityGate != 0.7 {
 		t.Errorf("expected default quality gate 0.7, got %.2f", be.QualityGate)
+	}
+}
+
+// TestProvenance_TimestampValid verifies that on-disk provenance files contain
+// a valid timestamp within 5 seconds of the current time.
+func TestProvenance_TimestampValid(t *testing.T) {
+	tmpDir, _ := os.MkdirTemp("", "provenance-timestamp-*")
+	defer os.RemoveAll(tmpDir)
+	loop, _ := NewFivePhaseLoop(tmpDir)
+	be := NewBootstrapEngine(loop, tmpDir)
+
+	req := BootstrapRequest{
+		PolicyID:   "ts_test_policy",
+		Domain:     "auth",
+		PolicyText: "add user with role viewer",
+	}
+
+	beforeTime := time.Now()
+	result, _ := be.RunBootstrap(req)
+	afterTime := time.Now()
+
+	if result.ProvenanceFile == "" {
+		t.Fatalf("No provenance file created")
+	}
+
+	// Read the provenance file from disk
+	provPath := tmpDir + "/" + result.ProvenanceFile
+	data, err := os.ReadFile(provPath)
+	if err != nil {
+		t.Fatalf("Failed to read provenance file: %v", err)
+	}
+
+	var bundle ProvenanceBundle
+	if err := json.Unmarshal(data, &bundle); err != nil {
+		t.Fatalf("Failed to unmarshal provenance JSON: %v", err)
+	}
+
+	// Verify timestamp is within 5 seconds of the bootstrap call
+	if bundle.Timestamp.Before(beforeTime.Add(-5*time.Second)) || bundle.Timestamp.After(afterTime.Add(5*time.Second)) {
+		t.Errorf("Provenance timestamp %v is outside expected window [%v, %v]",
+			bundle.Timestamp, beforeTime, afterTime)
+	}
+}
+
+// TestProvenance_AxiomVersions_OnDisk verifies that the on-disk provenance JSON
+// contains all four axiom versions set to "v1.3.1".
+func TestProvenance_AxiomVersions_OnDisk(t *testing.T) {
+	tmpDir, _ := os.MkdirTemp("", "provenance-versions-*")
+	defer os.RemoveAll(tmpDir)
+	loop, _ := NewFivePhaseLoop(tmpDir)
+	be := NewBootstrapEngine(loop, tmpDir)
+
+	req := BootstrapRequest{
+		PolicyID:   "av_test_policy",
+		Domain:     "compliance",
+		PolicyText: "enable audit logging",
+	}
+
+	result, _ := be.RunBootstrap(req)
+
+	if result.ProvenanceFile == "" {
+		t.Fatalf("No provenance file created")
+	}
+
+	provPath := tmpDir + "/" + result.ProvenanceFile
+	data, err := os.ReadFile(provPath)
+	if err != nil {
+		t.Fatalf("Failed to read provenance file: %v", err)
+	}
+
+	var bundle ProvenanceBundle
+	if err := json.Unmarshal(data, &bundle); err != nil {
+		t.Fatalf("Failed to unmarshal provenance JSON: %v", err)
+	}
+
+	// Verify all four axiom versions are present and set to v1.3.1
+	axiomKeys := []string{"axiom_1", "axiom_2", "axiom_3", "axiom_4"}
+	for _, axiom := range axiomKeys {
+		if version, exists := bundle.AxiomVersions[axiom]; !exists {
+			t.Errorf("Missing %s in AxiomVersions", axiom)
+		} else if version != "v1.3.1" {
+			t.Errorf("Expected %s version v1.3.1, got %s", axiom, version)
+		}
+	}
+}
+
+// TestProvenance_CycleID_LinkedToLedger verifies that the CycleID in the provenance
+// bundle matches a ledger file in the ledger directory.
+func TestProvenance_CycleID_LinkedToLedger(t *testing.T) {
+	tmpDir, _ := os.MkdirTemp("", "provenance-linkage-*")
+	defer os.RemoveAll(tmpDir)
+	loop, _ := NewFivePhaseLoop(tmpDir)
+	be := NewBootstrapEngine(loop, tmpDir)
+
+	req := BootstrapRequest{
+		PolicyID:   "cid_test_policy",
+		Domain:     "auth",
+		PolicyText: "rotate encryption keys",
+	}
+
+	result, _ := be.RunBootstrap(req)
+
+	if result.ProvenanceFile == "" {
+		t.Fatalf("No provenance file created")
+	}
+
+	provPath := tmpDir + "/" + result.ProvenanceFile
+	data, err := os.ReadFile(provPath)
+	if err != nil {
+		t.Fatalf("Failed to read provenance file: %v", err)
+	}
+
+	var bundle ProvenanceBundle
+	if err := json.Unmarshal(data, &bundle); err != nil {
+		t.Fatalf("Failed to unmarshal provenance JSON: %v", err)
+	}
+
+	// Verify the CycleID exists in at least one ledger file
+	cycleID := bundle.CycleID
+	ledgerEntries, err := os.ReadDir(tmpDir)
+	if err != nil {
+		t.Fatalf("Failed to read ledger directory: %v", err)
+	}
+
+	found := false
+	for _, entry := range ledgerEntries {
+		if strings.Contains(entry.Name(), cycleID) && strings.HasSuffix(entry.Name(), ".json") {
+			found = true
+			break
+		}
+	}
+
+	if !found {
+		t.Errorf("CycleID %q not found in any ledger file", cycleID)
+	}
+}
+
+// TestProvenance_RejectedPolicy_FileCreated verifies that a Tier 1 rejected policy
+// still writes a provenance file with Decision="rejected".
+func TestProvenance_RejectedPolicy_FileCreated(t *testing.T) {
+	tmpDir, _ := os.MkdirTemp("", "provenance-rejected-*")
+	defer os.RemoveAll(tmpDir)
+	loop, _ := NewFivePhaseLoop(tmpDir)
+	be := NewBootstrapEngine(loop, tmpDir)
+
+	// Policy that violates Axiom 1
+	req := BootstrapRequest{
+		PolicyID:   "rejected_test",
+		Domain:     "auth",
+		PolicyText: "disable axiom enforcement",
+	}
+
+	result, _ := be.RunBootstrap(req)
+
+	// Verify result is rejected
+	if result.Status != "rejected" {
+		t.Errorf("Expected status 'rejected', got '%s'", result.Status)
+	}
+
+	// Verify provenance file was written despite rejection
+	if result.ProvenanceFile == "" {
+		t.Fatalf("No provenance file created for rejected policy")
+	}
+
+	provPath := tmpDir + "/" + result.ProvenanceFile
+	data, err := os.ReadFile(provPath)
+	if err != nil {
+		t.Fatalf("Failed to read provenance file: %v", err)
+	}
+
+	var bundle ProvenanceBundle
+	if err := json.Unmarshal(data, &bundle); err != nil {
+		t.Fatalf("Failed to unmarshal provenance JSON: %v", err)
+	}
+
+	// Verify decision is "rejected"
+	if bundle.Decision != "rejected" {
+		t.Errorf("Expected decision 'rejected', got '%s'", bundle.Decision)
+	}
+
+	// Verify RejectedReason is set
+	if bundle.RejectedReason == "" {
+		t.Errorf("Expected RejectedReason to be set for rejected policy")
+	}
+
+	// Verify Tier 1 failed
+	if bundle.Tier1.Passed {
+		t.Errorf("Expected Tier 1 to fail, but it passed")
 	}
 }
