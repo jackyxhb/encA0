@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"embed"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"io/fs"
@@ -125,6 +126,17 @@ func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
 	// 2. Trigger immediate UI update for indicators
 	snapshot := loop.GetSnapshot()
 	UpdateIndicators(snapshot.Indicators)
+
+	// Check and broadcast alerts
+	alerts := CheckAlerts(snapshot.Indicators)
+	for _, alert := range alerts {
+		alertJSON, _ := json.Marshal(alert)
+		select {
+		case b.broadcast <- SSEEvent{Event: "alert", Data: string(alertJSON)}:
+		default:
+		}
+	}
+
 	indicatorsMu.RLock()
 	indicators := make([]Indicator, len(CurrentIndicators))
 	copy(indicators, CurrentIndicators)
@@ -237,6 +249,17 @@ func simulateTelemetry(b *Broker) {
 
 		snapshot := loop.GetSnapshot()
 		UpdateIndicators(snapshot.Indicators)
+
+		// Check and broadcast alerts
+		alerts := CheckAlerts(snapshot.Indicators)
+		for _, alert := range alerts {
+			alertJSON, _ := json.Marshal(alert)
+			select {
+			case b.broadcast <- SSEEvent{Event: "alert", Data: string(alertJSON)}:
+			default:
+			}
+		}
+
 		indicatorsMu.RLock()
 		indicators := make([]Indicator, len(CurrentIndicators))
 		copy(indicators, CurrentIndicators)

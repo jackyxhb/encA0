@@ -3,8 +3,35 @@ package main
 import (
 	"fmt"
 	"sync"
+	"time"
 	"engine"
 )
+
+type AlertRule struct {
+	WarningThreshold  float64
+	CriticalThreshold float64
+	HigherIsBetter    bool
+}
+
+type AlertEvent struct {
+	Level     string    `json:"level"`
+	Type      string    `json:"type"`
+	Indicator string    `json:"indicator"`
+	Value     float64   `json:"value"`
+	Message   string    `json:"message"`
+	Timestamp time.Time `json:"timestamp"`
+}
+
+var AlertRules = map[engine.IndicatorName]AlertRule{
+	engine.ComplianceRate:       {WarningThreshold: 0.95, CriticalThreshold: 0.90, HigherIsBetter: true},
+	engine.HomeostasisScore:     {WarningThreshold: 0.85, CriticalThreshold: 0.70, HigherIsBetter: true},
+	engine.TraceabilityCoverage: {WarningThreshold: 0.99, CriticalThreshold: 0.95, HigherIsBetter: true},
+	engine.BootstrapConfidence:  {WarningThreshold: 0.75, CriticalThreshold: 0.60, HigherIsBetter: true},
+	engine.AdaptationResilience: {WarningThreshold: 0.85, CriticalThreshold: 0.70, HigherIsBetter: true},
+	engine.ProvenanceOverhead:   {WarningThreshold: 0.10, CriticalThreshold: 0.20, HigherIsBetter: false},
+	engine.AxiomViolationRate:   {WarningThreshold: 0.03, CriticalThreshold: 0.10, HigherIsBetter: false},
+	engine.PolicyRollbackRate:   {WarningThreshold: 0.05, CriticalThreshold: 0.10, HigherIsBetter: false},
+}
 
 type Indicator struct {
 	ID     int
@@ -53,15 +80,69 @@ func UpdateIndicators(metrics map[engine.IndicatorName]float64) {
 	for j, ind := range CurrentIndicators {
 		if val, ok := metrics[ind.Name]; ok {
 			CurrentIndicators[j].Value = val
-			// Simplified status logic
 			CurrentIndicators[j].Status = "green"
-			if val < 0.90 && (ind.Name == engine.ComplianceRate || ind.Name == engine.HomeostasisScore) {
-				CurrentIndicators[j].Status = "yellow"
-			}
-			if val < 0.80 && (ind.Name == engine.ComplianceRate || ind.Name == engine.HomeostasisScore) {
-				CurrentIndicators[j].Status = "red"
+
+			// Check against alert rules
+			if rule, exists := AlertRules[ind.Name]; exists {
+				if rule.HigherIsBetter {
+					// For metrics where higher is better (compliance, resilience, etc.)
+					if val < rule.CriticalThreshold {
+						CurrentIndicators[j].Status = "red"
+					} else if val < rule.WarningThreshold {
+						CurrentIndicators[j].Status = "yellow"
+					}
+				} else {
+					// For metrics where lower is better (violation rate, overhead, etc.)
+					if val > rule.CriticalThreshold {
+						CurrentIndicators[j].Status = "red"
+					} else if val > rule.WarningThreshold {
+						CurrentIndicators[j].Status = "yellow"
+					}
+				}
 			}
 		}
 	}
+}
+
+func CheckAlerts(metrics map[engine.IndicatorName]float64) []AlertEvent {
+	var alerts []AlertEvent
+
+	for indicatorName, val := range metrics {
+		if rule, exists := AlertRules[indicatorName]; exists {
+			var level string
+			var triggered bool
+
+			if rule.HigherIsBetter {
+				if val < rule.CriticalThreshold {
+					level = "critical"
+					triggered = true
+				} else if val < rule.WarningThreshold {
+					level = "warning"
+					triggered = true
+				}
+			} else {
+				if val > rule.CriticalThreshold {
+					level = "critical"
+					triggered = true
+				} else if val > rule.WarningThreshold {
+					level = "warning"
+					triggered = true
+				}
+			}
+
+			if triggered {
+				alerts = append(alerts, AlertEvent{
+					Level:     level,
+					Type:      "threshold_breach",
+					Indicator: string(indicatorName),
+					Value:     val,
+					Message:   fmt.Sprintf("%s at %.2f", indicatorName, val),
+					Timestamp: time.Now(),
+				})
+			}
+		}
+	}
+
+	return alerts
 }
 
