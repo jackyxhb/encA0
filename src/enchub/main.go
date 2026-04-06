@@ -23,6 +23,7 @@ var content embed.FS
 var loop *engine.FivePhaseLoop
 var broker *Broker
 var bootstrapLogsPath string
+var ledgerPath string
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
@@ -155,7 +156,7 @@ func main() {
 	var err error
 
 	// Read configuration from environment variables with defaults
-	ledgerPath := os.Getenv("LEDGER_PATH")
+	ledgerPath = os.Getenv("LEDGER_PATH")
 	if ledgerPath == "" {
 		ledgerPath = "ledger"
 	}
@@ -193,6 +194,9 @@ func main() {
 		commandHandler(w, r, broker)
 	})
 	http.HandleFunc("/bootstrap", bootstrapHandler)
+	http.HandleFunc("/api/audit/provenance", auditProvenanceListHandler)
+	http.HandleFunc("/api/audit/provenance-by-id", auditProvenanceByIDHandler)
+	http.HandleFunc("/api/audit/violations", auditViolationsHandler)
 	http.HandleFunc("/api/stream", broker.ServeHTTP)
 	http.HandleFunc("/", indexHandler)
 
