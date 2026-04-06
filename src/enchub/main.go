@@ -215,10 +215,25 @@ func main() {
 }
 
 func simulateTelemetry(b *Broker) {
+	interval := 5 * time.Second
+	stableCycles := 0
+
 	for {
-		time.Sleep(5 * time.Second)
 		// Run a "heartbeat" cycle to maintain homeostasis
-		loop.ExecuteCycle(map[string]interface{}{"command": "heartbeat"}, nil)
+		state, _ := loop.ExecuteCycle(map[string]interface{}{"command": "heartbeat"}, nil)
+
+		// Adaptive sampling: adjust interval based on system state
+		if state.Status == engine.StatusAxiomViolation {
+			interval = 1 * time.Second // Fast mode on violation
+			stableCycles = 0
+		} else {
+			stableCycles++
+			if stableCycles >= 10 {
+				interval = 10 * time.Second // Slow mode when stable
+			} else if interval == 1*time.Second {
+				interval = 5 * time.Second // Back to base if violation cleared
+			}
+		}
 
 		snapshot := loop.GetSnapshot()
 		UpdateIndicators(snapshot.Indicators)
@@ -232,6 +247,8 @@ func simulateTelemetry(b *Broker) {
 				Data:  ind.RenderHTML(),
 			}
 		}
+
+		time.Sleep(interval)
 	}
 }
 
