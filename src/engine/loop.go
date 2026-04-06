@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"time"
+
 	"github.com/google/uuid"
 )
 
@@ -31,9 +32,9 @@ func NewFivePhaseLoop(rootPath string) (*FivePhaseLoop, error) {
 func (l *FivePhaseLoop) ExecuteCycle(policyRequest map[string]interface{}, envState map[string]interface{}) (*CycleState, error) {
 	cycleID := uuid.New().String()
 	state := &CycleState{
-		CycleID:     cycleID,
-		Status:      StatusInProgress,
-		StartTime:   time.Now(),
+		CycleID:   cycleID,
+		Status:    StatusInProgress,
+		StartTime: time.Now(),
 		SenseOutput: &SenseOutput{
 			Timestamp:     time.Now(),
 			Observations:  envState,
@@ -59,28 +60,13 @@ func (l *FivePhaseLoop) ExecuteCycle(policyRequest map[string]interface{}, envSt
 		// Fallback to "command" for backward compatibility
 		policy, _ = policyRequest["command"].(string)
 	}
-	
+
 	// Axiom 1: Immutability (Action cannot modify axioms)
 	if err := l.Enforcer.ValidateAxiom1(policy); err != nil {
 		return state, l.handleError(state, err)
 	}
 
 	// Axiom 2: Determinism (Simulated bounds for now)
-	// Check for dynamic constraint overrides (for testing); fall back to defaults
-	constraints := map[string]bool{
-		"immutability":   true,
-		"determinism":    true,
-		"enforceability": true,
-	}
-	if overrides, ok := policyRequest["constraints"].(map[string]interface{}); ok {
-		// Convert map[string]interface{} to map[string]bool
-		for k, v := range overrides {
-			if boolVal, ok := v.(bool); ok {
-				constraints[k] = boolVal
-			}
-		}
-	}
-
 	valOutput := &ValidateOutput{
 		Timestamp:  time.Now(),
 		Confidence: 0.90,
@@ -89,7 +75,11 @@ func (l *FivePhaseLoop) ExecuteCycle(policyRequest map[string]interface{}, envSt
 			EpistemicUpper: 0.95,
 			Aleatoric:      0.02,
 		},
-		ConstraintChecks: constraints,
+		ConstraintChecks: map[string]bool{
+			"immutability":   true,
+			"determinism":    true,
+			"enforceability": true,
+		},
 		Passed: true,
 	}
 

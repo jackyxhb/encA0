@@ -2,10 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"engine"
 	"fmt"
 	"net/http"
 	"strings"
-	"engine"
 )
 
 func bootstrapHandler(w http.ResponseWriter, r *http.Request) {
@@ -30,8 +30,8 @@ func bootstrapHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Create bootstrap engine (using global path from main.go)
-	be := engine.NewBootstrapEngine(loop, bootstrapLogsPath)
+	// Create bootstrap engine
+	be := engine.NewBootstrapEngine(loop, "../../bootstrap-logs")
 
 	// Run bootstrap
 	result, err := be.RunBootstrap(req)

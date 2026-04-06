@@ -1,28 +1,21 @@
 package main
 
 import (
-	"context"
 	"embed"
+	"engine"
 	"fmt"
 	"html/template"
-	"io/fs"
 	"net/http"
-	"os"
-	"os/signal"
 	"strconv"
 	"strings"
-	"syscall"
 	"time"
-	"engine"
 )
 
-//go:embed templates/* static/*
+//go:embed templates/*
 var content embed.FS
 
 var loop *engine.FivePhaseLoop
 var broker *Broker
-var bootstrapLogsPath string
-var ledgerPath string
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
@@ -71,7 +64,7 @@ func socraticEvaluateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Move to next question or finish
 	if qID < len(Axioms) {
-		nextQ := Axioms[qID] 
+		nextQ := Axioms[qID]
 		tmpl, _ := template.ParseFS(content, "templates/axiom.html")
 		tmpl.Execute(w, nextQ)
 	} else {
@@ -96,7 +89,7 @@ func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
 
 	// 1. Run real ENCT cycle
 	state, err := loop.ExecuteCycle(map[string]interface{}{"agent_id": agentID, "command": cmd}, map[string]interface{}{"env": "production"})
-	
+
 	agent := GetAgent(agentID)
 	agentName := "Unknown"
 	if agent != nil {
@@ -126,21 +119,7 @@ func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
 	// 2. Trigger immediate UI update for indicators
 	snapshot := loop.GetSnapshot()
 	UpdateIndicators(snapshot.Indicators)
-
-	// Check and broadcast alerts
-	alerts := CheckAlerts(snapshot.Indicators)
-	for _, alert := range alerts {
-		select {
-		case b.broadcast <- SSEEvent{Event: "alert", Data: alert.RenderHTML()}:
-		default:
-		}
-	}
-
-	indicatorsMu.RLock()
-	indicators := make([]Indicator, len(CurrentIndicators))
-	copy(indicators, CurrentIndicators)
-	indicatorsMu.RUnlock()
-	for _, ind := range indicators {
+	for _, ind := range CurrentIndicators {
 		select {
 		case b.broadcast <- SSEEvent{Event: fmt.Sprintf("indicator-%d", ind.ID), Data: ind.RenderHTML()}:
 		default:
@@ -152,25 +131,8 @@ func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
 
 func main() {
 	var err error
-
-	// Read configuration from environment variables with defaults
-	ledgerPath = os.Getenv("LEDGER_PATH")
-	if ledgerPath == "" {
-		ledgerPath = "ledger"
-	}
-
-	bootstrapLogsPath = os.Getenv("BOOTSTRAP_LOGS_PATH")
-	if bootstrapLogsPath == "" {
-		bootstrapLogsPath = "bootstrap-logs"
-	}
-
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8081"
-	}
-
-	// Initialize engine with ledger path
-	loop, err = engine.NewFivePhaseLoop(ledgerPath)
+	// Initialize engine with ledger path at project root (outside src)
+	loop, err = engine.NewFivePhaseLoop("../../ledger")
 	if err != nil {
 		panic(err)
 	}
@@ -179,12 +141,6 @@ func main() {
 	go broker.Start()
 	go simulateTelemetry(broker)
 
-	// Static files (CSS, JS)
-	staticFS, err := fs.Sub(content, "static")
-	if err == nil {
-		http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.FS(staticFS))))
-	}
-
 	http.HandleFunc("/health", healthCheckHandler)
 	http.HandleFunc("/api/socratic/start", socraticStartHandler)
 	http.HandleFunc("/api/socratic/evaluate", socraticEvaluateHandler)
@@ -192,89 +148,24 @@ func main() {
 		commandHandler(w, r, broker)
 	})
 	http.HandleFunc("/bootstrap", bootstrapHandler)
-	http.HandleFunc("/api/feedback", feedbackHandler)
-	http.HandleFunc("/api/audit/provenance", auditProvenanceListHandler)
-	http.HandleFunc("/api/audit/provenance-by-id", auditProvenanceByIDHandler)
-	http.HandleFunc("/api/audit/violations", auditViolationsHandler)
 	http.HandleFunc("/api/stream", broker.ServeHTTP)
 	http.HandleFunc("/", indexHandler)
-
-	// Set up graceful shutdown
-	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
-	defer cancel()
-
-	server := &http.Server{
-		Addr:         ":" + port,
-		Handler:      nil, // Use DefaultServeMux
-	}
-
-	// Start server in a goroutine
-	go func() {
-		fmt.Printf("Starting ENCT enchub server on %s\n", server.Addr)
-		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			fmt.Printf("Server error: %v\n", err)
-		}
-	}()
-
-	// Wait for interrupt signal
-	<-ctx.Done()
-
-	// Graceful shutdown with 10s timeout
-	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer shutdownCancel()
-
-	fmt.Println("Shutting down server...")
-	if err := server.Shutdown(shutdownCtx); err != nil {
-		fmt.Printf("Shutdown error: %v\n", err)
-	}
+	http.ListenAndServe(":8081", nil)
 }
 
 func simulateTelemetry(b *Broker) {
-	interval := 5 * time.Second
-	stableCycles := 0
-
 	for {
+		time.Sleep(5 * time.Second)
 		// Run a "heartbeat" cycle to maintain homeostasis
-		state, _ := loop.ExecuteCycle(map[string]interface{}{"command": "heartbeat"}, nil)
-
-		// Adaptive sampling: adjust interval based on system state
-		if state.Status == engine.StatusAxiomViolation {
-			interval = 1 * time.Second // Fast mode on violation
-			stableCycles = 0
-		} else {
-			stableCycles++
-			if stableCycles >= 10 {
-				interval = 10 * time.Second // Slow mode when stable
-			} else if interval == 1*time.Second {
-				interval = 5 * time.Second // Back to base if violation cleared
-			}
-		}
+		loop.ExecuteCycle(map[string]interface{}{"command": "heartbeat"}, nil)
 
 		snapshot := loop.GetSnapshot()
 		UpdateIndicators(snapshot.Indicators)
-
-		// Check and broadcast alerts
-		alerts := CheckAlerts(snapshot.Indicators)
-		for _, alert := range alerts {
-			select {
-			case b.broadcast <- SSEEvent{Event: "alert", Data: alert.RenderHTML()}:
-			default:
-			}
-		}
-
-		indicatorsMu.RLock()
-		indicators := make([]Indicator, len(CurrentIndicators))
-		copy(indicators, CurrentIndicators)
-		indicatorsMu.RUnlock()
-		for _, ind := range indicators {
+		for _, ind := range CurrentIndicators {
 			b.broadcast <- SSEEvent{
 				Event: fmt.Sprintf("indicator-%d", ind.ID),
 				Data:  ind.RenderHTML(),
 			}
 		}
-
-		time.Sleep(interval)
 	}
 }
-
-
