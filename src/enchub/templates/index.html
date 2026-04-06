@@ -27,6 +27,16 @@
             </div>
         </section>
 
+        <section id="alerts">
+            <h2>Live Alerts & Violations</h2>
+            <div id="alert-log"
+                 sse-swap="alert"
+                 hx-swap="afterbegin"
+                 style="max-height: 250px; overflow-y: auto; border: 1px solid #ddd; padding: 5px; background: #fafafa;">
+                <div style="padding: 10px; color: #999; text-align: center;">No alerts</div>
+            </div>
+        </section>
+
         <section id="socratic">
             <h2>Socratic Policy Intake</h2>
             <div id="socratic-content">

@@ -14,12 +14,15 @@ type AlertRule struct {
 }
 
 type AlertEvent struct {
-	Level     string    `json:"level"`
-	Type      string    `json:"type"`
-	Indicator string    `json:"indicator"`
-	Value     float64   `json:"value"`
-	Message   string    `json:"message"`
-	Timestamp time.Time `json:"timestamp"`
+	Level       string    `json:"level"`
+	Type        string    `json:"type"`
+	Indicator   string    `json:"indicator"`
+	Value       float64   `json:"value"`
+	Message     string    `json:"message"`
+	Timestamp   time.Time `json:"timestamp"`
+	BGColor     string    `json:"-"`
+	TextColor   string    `json:"-"`
+	BorderColor string    `json:"-"`
 }
 
 var AlertRules = map[engine.IndicatorName]AlertRule{
@@ -144,5 +147,34 @@ func CheckAlerts(metrics map[engine.IndicatorName]float64) []AlertEvent {
 	}
 
 	return alerts
+}
+
+func (a AlertEvent) RenderHTML() string {
+	bgColor := "#fff3e0"
+	textColor := "#e65100"
+	borderColor := "#ff9800"
+
+	if a.Level == "critical" {
+		bgColor = "#ffebee"
+		textColor = "#c62828"
+		borderColor = "#d32f2f"
+	}
+
+	indicatorHTML := ""
+	if a.Indicator != "" {
+		indicatorHTML = fmt.Sprintf(`<div style="font-size: 0.9em; color: #666; margin-top: 5px;">Indicator: <code>%s</code> = %.2f</div>`, a.Indicator, a.Value)
+	}
+
+	timestamp := a.Timestamp.Format("15:04:05")
+	return fmt.Sprintf(`<div style="padding: 10px; border-bottom: 1px solid #ddd; margin-bottom: 5px; background: %s; color: %s; border-left: 4px solid %s;">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <strong style="font-size: 1.1em;">%s</strong>
+      <span style="margin-left: 10px; font-weight: normal;">%s</span>
+    </div>
+    <span style="font-size: 0.85em; color: #666; white-space: nowrap;">%s</span>
+  </div>
+  %s
+</div>`, bgColor, textColor, borderColor, a.Level, a.Message, timestamp, indicatorHTML)
 }
 

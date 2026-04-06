@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"embed"
-	"encoding/json"
 	"fmt"
 	"html/template"
 	"io/fs"
@@ -131,9 +130,8 @@ func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
 	// Check and broadcast alerts
 	alerts := CheckAlerts(snapshot.Indicators)
 	for _, alert := range alerts {
-		alertJSON, _ := json.Marshal(alert)
 		select {
-		case b.broadcast <- SSEEvent{Event: "alert", Data: string(alertJSON)}:
+		case b.broadcast <- SSEEvent{Event: "alert", Data: alert.RenderHTML()}:
 		default:
 		}
 	}
@@ -194,6 +192,7 @@ func main() {
 		commandHandler(w, r, broker)
 	})
 	http.HandleFunc("/bootstrap", bootstrapHandler)
+	http.HandleFunc("/api/feedback", feedbackHandler)
 	http.HandleFunc("/api/audit/provenance", auditProvenanceListHandler)
 	http.HandleFunc("/api/audit/provenance-by-id", auditProvenanceByIDHandler)
 	http.HandleFunc("/api/audit/violations", auditViolationsHandler)
@@ -257,9 +256,8 @@ func simulateTelemetry(b *Broker) {
 		// Check and broadcast alerts
 		alerts := CheckAlerts(snapshot.Indicators)
 		for _, alert := range alerts {
-			alertJSON, _ := json.Marshal(alert)
 			select {
-			case b.broadcast <- SSEEvent{Event: "alert", Data: string(alertJSON)}:
+			case b.broadcast <- SSEEvent{Event: "alert", Data: alert.RenderHTML()}:
 			default:
 			}
 		}

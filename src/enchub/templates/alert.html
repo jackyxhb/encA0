@@ -1,0 +1,18 @@
+{{if eq .Level "critical"}}
+<div style="padding: 10px; border-bottom: 1px solid #ddd; margin-bottom: 5px; background: #ffebee; color: #c62828; border-left: 4px solid #d32f2f;">
+{{else}}
+<div style="padding: 10px; border-bottom: 1px solid #ddd; margin-bottom: 5px; background: #fff3e0; color: #e65100; border-left: 4px solid #ff9800;">
+{{end}}
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <strong style="font-size: 1.1em;">{{.Level}}</strong>
+      <span style="margin-left: 10px; font-weight: normal;">{{.Message}}</span>
+    </div>
+    <span style="font-size: 0.85em; color: #666; white-space: nowrap;">{{.Timestamp}}</span>
+  </div>
+  {{if .Indicator}}
+  <div style="font-size: 0.9em; color: #666; margin-top: 5px;">
+    Indicator: <code>{{.Indicator}}</code> = {{.Value}}
+  </div>
+  {{end}}
+</div>
