@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  enchub:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: enct-enchub
+    ports:
+      - "8080:8080"
+    volumes:
+      - ledger:/data/ledger
+      - bootstrap-logs:/data/bootstrap-logs
+    environment:
+      PORT: "8080"
+      LEDGER_PATH: "/data/ledger"
+      BOOTSTRAP_LOGS_PATH: "/data/bootstrap-logs"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  ledger:
+    driver: local
+  bootstrap-logs:
+    driver: local

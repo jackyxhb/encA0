@@ -30,8 +30,8 @@ func bootstrapHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Create bootstrap engine
-	be := engine.NewBootstrapEngine(loop, "../../bootstrap-logs")
+	// Create bootstrap engine (using global path from main.go)
+	be := engine.NewBootstrapEngine(loop, bootstrapLogsPath)
 
 	// Run bootstrap
 	result, err := be.RunBootstrap(req)

@@ -29,7 +29,12 @@ if [ "$ACTION" = "list" ]; then
 
   count=0
   for file in $(ls -t "$BOOTSTRAP_LOGS"/provenance_*.json 2>/dev/null | head -n "$LAST_N"); do
-    TIMESTAMP=$(stat -f "%SB" -t "%Y-%m-%d %H:%M:%S" "$file" 2>/dev/null || echo "unknown")
+    # Get file timestamp (portable across macOS and Linux)
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+      TIMESTAMP=$(stat -f "%SB" -t "%Y-%m-%d %H:%M:%S" "$file" 2>/dev/null || echo "unknown")
+    else
+      TIMESTAMP=$(stat --format="%y" "$file" 2>/dev/null | awk '{print $1" "$2}' || echo "unknown")
+    fi
     POLICY_ID=$(grep -o '"policy_id":"[^"]*"' "$file" | cut -d'"' -f4)
     DOMAIN=$(grep -o '"domain":"[^"]*"' "$file" | cut -d'"' -f4)
     STATUS=$(grep -o '"decision":"[^"]*"' "$file" | cut -d'"' -f4)

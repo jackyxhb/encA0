@@ -1,0 +1,25 @@
+{
+  "policy_id": "test_1",
+  "domain": "auth",
+  "cycle_id": "7bd10a71-a7d6-4750-ab90-23c1e2301a3c",
+  "timestamp": "2026-04-06T04:43:26.413166+12:00",
+  "enct_version": "v1.3.1",
+  "axiom_versions": {
+    "axiom_1": "v1.3.1",
+    "axiom_2": "v1.3.1",
+    "axiom_3": "v1.3.1",
+    "axiom_4": "v1.3.1"
+  },
+  "tier1": {
+    "passed": true
+  },
+  "tier2": {
+    "passed": true
+  },
+  "tier3": {
+    "passed": true
+  },
+  "confidence": 0.9,
+  "homeostasis": 0,
+  "decision": "accepted"
+}

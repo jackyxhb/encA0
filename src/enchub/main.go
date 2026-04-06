@@ -1,21 +1,27 @@
 package main
 
 import (
+	"context"
 	"embed"
 	"fmt"
 	"html/template"
+	"io/fs"
 	"net/http"
+	"os"
+	"os/signal"
 	"strconv"
 	"strings"
+	"syscall"
 	"time"
 	"engine"
 )
 
-//go:embed templates/*
+//go:embed templates/* static/*
 var content embed.FS
 
 var loop *engine.FivePhaseLoop
 var broker *Broker
+var bootstrapLogsPath string
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
@@ -119,7 +125,11 @@ func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
 	// 2. Trigger immediate UI update for indicators
 	snapshot := loop.GetSnapshot()
 	UpdateIndicators(snapshot.Indicators)
-	for _, ind := range CurrentIndicators {
+	indicatorsMu.RLock()
+	indicators := make([]Indicator, len(CurrentIndicators))
+	copy(indicators, CurrentIndicators)
+	indicatorsMu.RUnlock()
+	for _, ind := range indicators {
 		select {
 		case b.broadcast <- SSEEvent{Event: fmt.Sprintf("indicator-%d", ind.ID), Data: ind.RenderHTML()}:
 		default:
@@ -131,8 +141,25 @@ func commandHandler(w http.ResponseWriter, r *http.Request, b *Broker) {
 
 func main() {
 	var err error
-	// Initialize engine with ledger path at project root (outside src)
-	loop, err = engine.NewFivePhaseLoop("../../ledger")
+
+	// Read configuration from environment variables with defaults
+	ledgerPath := os.Getenv("LEDGER_PATH")
+	if ledgerPath == "" {
+		ledgerPath = "ledger"
+	}
+
+	bootstrapLogsPath = os.Getenv("BOOTSTRAP_LOGS_PATH")
+	if bootstrapLogsPath == "" {
+		bootstrapLogsPath = "bootstrap-logs"
+	}
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8081"
+	}
+
+	// Initialize engine with ledger path
+	loop, err = engine.NewFivePhaseLoop(ledgerPath)
 	if err != nil {
 		panic(err)
 	}
@@ -140,6 +167,12 @@ func main() {
 	broker = NewBroker()
 	go broker.Start()
 	go simulateTelemetry(broker)
+
+	// Static files (CSS, JS)
+	staticFS, err := fs.Sub(content, "static")
+	if err == nil {
+		http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.FS(staticFS))))
+	}
 
 	http.HandleFunc("/health", healthCheckHandler)
 	http.HandleFunc("/api/socratic/start", socraticStartHandler)
@@ -150,7 +183,35 @@ func main() {
 	http.HandleFunc("/bootstrap", bootstrapHandler)
 	http.HandleFunc("/api/stream", broker.ServeHTTP)
 	http.HandleFunc("/", indexHandler)
-	http.ListenAndServe(":8081", nil)
+
+	// Set up graceful shutdown
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer cancel()
+
+	server := &http.Server{
+		Addr:         ":" + port,
+		Handler:      nil, // Use DefaultServeMux
+	}
+
+	// Start server in a goroutine
+	go func() {
+		fmt.Printf("Starting ENCT enchub server on %s\n", server.Addr)
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			fmt.Printf("Server error: %v\n", err)
+		}
+	}()
+
+	// Wait for interrupt signal
+	<-ctx.Done()
+
+	// Graceful shutdown with 10s timeout
+	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer shutdownCancel()
+
+	fmt.Println("Shutting down server...")
+	if err := server.Shutdown(shutdownCtx); err != nil {
+		fmt.Printf("Shutdown error: %v\n", err)
+	}
 }
 
 func simulateTelemetry(b *Broker) {
@@ -158,10 +219,14 @@ func simulateTelemetry(b *Broker) {
 		time.Sleep(5 * time.Second)
 		// Run a "heartbeat" cycle to maintain homeostasis
 		loop.ExecuteCycle(map[string]interface{}{"command": "heartbeat"}, nil)
-		
+
 		snapshot := loop.GetSnapshot()
 		UpdateIndicators(snapshot.Indicators)
-		for _, ind := range CurrentIndicators {
+		indicatorsMu.RLock()
+		indicators := make([]Indicator, len(CurrentIndicators))
+		copy(indicators, CurrentIndicators)
+		indicatorsMu.RUnlock()
+		for _, ind := range indicators {
 			b.broadcast <- SSEEvent{
 				Event: fmt.Sprintf("indicator-%d", ind.ID),
 				Data:  ind.RenderHTML(),

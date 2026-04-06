@@ -36,6 +36,45 @@ jobs:
             exit 1
           fi
 
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - goos: linux
+            goarch: amd64
+            artifact_name: enchub-linux-amd64
+          - goos: linux
+            goarch: arm64
+            artifact_name: enchub-linux-arm64
+          - goos: darwin
+            goarch: amd64
+            artifact_name: enchub-darwin-amd64
+          - goos: darwin
+            goarch: arm64
+            artifact_name: enchub-darwin-arm64
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.22.2'
+      - name: Build enchub
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          CGO_ENABLED: 0
+        run: |
+          mkdir -p dist
+          cd src/enchub
+          go build -ldflags="-s -w -X main.Version=${{ github.ref_name }}" -o ../../dist/${{ matrix.artifact_name }} .
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: dist/${{ matrix.artifact_name }}
+          retention-days: 30
+
   validate:
     runs-on: ubuntu-latest
     steps:
