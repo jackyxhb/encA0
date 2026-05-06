@@ -1,5 +1,47 @@
 # Harness Engineering Implementation Plan — ENCT v1.3
 
+## Protocol Refresh — 2026-04-09
+
+The original implementation plan below assumes the repo is still greenfield. Do not execute it literally against the current repository. Use the selective mutation batch below for the next safe remediation pass.
+
+### Selective Mutation Batch A — Contract And Status Sync
+
+#### A1. Normalize canonical layout references
+- Update `AGENTS.md`, `.claude.md`, and `RULES.md` so they agree on the live source layout and the current portable surface.
+- Preserve the ENCT-vs-harness separation rule.
+- Verify that README, scripts, and workflows still match the same declared layout after the sync.
+
+#### A2. Repair live planning truth
+- Update `ENCT-TASK-HIERARCHY.md` or replace it with a current-state status ledger that reflects completed Phase 1 work and actual Phase 2 progress.
+- Remove or explicitly mark stale `Pending` markers that contradict current repo claims.
+- Ensure the chosen planning surface is the one referenced by agent instructions.
+
+#### A3. Refresh harness documents
+- Update `/harness/HE-SCOPE.md`, `HE-CLUES.md`, `HE-PRIORITIES.md`, `HE-IMPLEMENTATION-PLAN.md`, and `AUDIT-SUMMARY.md` so they classify the repo as mature-but-drifted rather than greenfield.
+- If the historical greenfield audit is retained, mark it as historical context.
+
+### Selective Mutation Batch B — Enforcement Portability
+
+#### B1. Make local gate installation discoverable
+- Document or version the local pre-commit setup so the repo does not depend on an invisible machine-local hook.
+- Keep CI as the upstream collective gate.
+
+#### B2. Map rules to actual gates
+- For each important rule surface, state whether it is enforced by CI, by local hooks, or by convention only.
+- Prefer binary pass/fail gates for high-risk rules.
+
+### Verification For The Refresh Batch
+
+- Re-run structure validation after any contract sync.
+- Re-run CI-relevant local commands for the touched surfaces.
+- Confirm agent-facing docs and enforcement scripts point to the same directories.
+
+### What Not To Do
+
+- Do not rebuild the repo as if it still lacks requirements, CI, or a harness folder.
+- Do not create a second harness audit area when `/harness` already exists.
+- Do not add new governance surfaces until the existing ones agree on current truth.
+
 **Project Scope:** ENCT v1.3 (Enactive Normative Control Theory) Full Agent Software Product  
 **Scale:** SAS (Single Agent System) with MAS readiness  
 **Complexity:** Complex System (full agent product with normative control, monitoring, deployment)  

@@ -1,5 +1,34 @@
 # Full Harness Engineering Audit — Summary & Status
 
+## Protocol Refresh — 2026-04-09
+
+**Refresh Verdict:** The repository is no longer accurately described by the original greenfield audit. It already contains a substantial harness and governance system, but its rule surfaces, planning surfaces, and audit surfaces have drifted out of sync with the live implementation.
+
+### Current Status
+
+- **Harness presence:** Strong
+- **Verification presence:** Strong
+- **Requirements/intake presence:** Present
+- **Primary weakness:** state-truth drift across agent instructions, planning, and audit docs
+- **Recommended action:** selective contract-sync batch, not a rebuild
+
+### Highest-Signal Findings
+
+1. Portable rules disagree with live repo structure.
+2. Planning/status documents no longer reflect actual progress.
+3. Existing `/harness` docs still describe a repo that has already been surpassed.
+4. Local pre-commit enforcement exists, but the portable versioned hook surface is weak.
+
+### Recommended Next Step
+
+Approve a narrow remediation batch focused on:
+
+1. syncing `AGENTS.md`, `.claude.md`, and `RULES.md` to the live layout
+2. repairing the planning/status truth surface
+3. refreshing `/harness` so it describes current maturity accurately
+
+Any earlier statements in this file that classify the repo as pre-infrastructure or ready to start Phase 1 from scratch should now be treated as historical context only.
+
 **Audit Completed:** 2026-04-05  
 **Project:** ENCT v1.3 Agent Software Product (Greenfield)  
 **Audit Scope:** All 30 core harness features + ENCT-specific gaps  

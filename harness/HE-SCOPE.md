@@ -1,5 +1,41 @@
 # Harness Engineering Scope & Baseline — ENCT v1.3 Agent Product
 
+## Protocol Refresh — 2026-04-09
+
+**Refresh Type:** External protocol re-audit of the existing harness surface  
+**Refresh Intent:** Reclassify current-state maturity before any new mutation batch  
+**Refresh Result:** The original greenfield baseline in this file is no longer current and should be treated as historical only.
+
+### Current Classification
+
+- **Repository State:** Mature, git-backed repo with active CI, scheduled maintenance, populated ENCT governance docs, a populated harness folder, and a large execution ledger.
+- **Native Planning Surface:** Present but stale. `ENCT-TASK-HIERARCHY.md` still reads like a pre-execution plan even though the repo now claims Phase 1 complete and Phase 2 implementation underway.
+- **Verification Surface:** Strong. `.github/workflows/test.yml`, `.github/workflows/scheduled.yml`, and versioned validation scripts are present and aligned with the live `src/engine` and `src/enchub` layout.
+- **Portable Contract Surface:** Inconsistent. `AGENTS.md`, `.claude.md`, and `RULES.md` disagree with the live source layout and with each other.
+- **Harness Surface:** Present but stale. Existing `/harness` audit files still describe the repo as having no infrastructure and an empty baseline.
+
+### Current Repo Reality
+
+- Live code layout is centered on `src/engine`, `src/enchub`, and `src/tests`.
+- `README.md` and CI scripts reflect that live layout.
+- `enct/REQUIREMENTS.md`, `POLICY-LEDGER.md`, `FAILURE-LEDGER.md`, `AUTONOMY-GATES.md`, and `RELEASE-NOTES.md` already exist.
+- Local pre-commit enforcement exists through `.git/hooks/pre-commit`, but the versioned `.husky/` surface is effectively empty, which weakens portability and discoverability.
+
+### Audit Interpretation
+
+- This is **not** a missing-harness repo.
+- This is a **drifted-harness repo**: automation and product surfaces have advanced faster than the portable rule surfaces and audit artifacts.
+- The correct next move is **selective mutation**, not a full harness rebuild.
+
+### Refresh Scope For This Audit Pass
+
+This pass treats the original 2026-04-05 audit as historical context and focuses only on present-state truth across four slots:
+
+1. Portable rules and agent instructions
+2. Planning and status truth
+3. Verification and enforcement portability
+4. Harness document freshness
+
 **Date:** 2026-04-05  
 **Audit Type:** Full Audit (Phase 0 Pre-Flight + Phase 1 Gap Analysis)  
 **Project Status:** Greenfield (no infrastructure yet)

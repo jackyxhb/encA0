@@ -1,5 +1,63 @@
 # Harness Engineering Gap Analysis — ENCT v1.3
 
+## Protocol Refresh — 2026-04-09
+
+The original contents below were written against a greenfield baseline and are now materially outdated. Use the refresh findings in this section as the current audit truth.
+
+### Current Findings
+
+#### 1. Portable Contract Drift
+
+- `AGENTS.md` declares implementation in `src/enct-hub/`.
+- `.claude.md` declares implementation in `src/enct/`.
+- `RULES.md` also describes `src/enct/` and `src/harness/` as the main code split.
+- The live repo, README, CI workflows, and validation scripts operate on `src/engine` and `src/enchub`.
+
+**Effect:** Agents reading the portable contract can be sent to the wrong directories even though the enforcement layer is operating against a different reality.
+
+#### 2. Planning Truth Drift
+
+- `ENCT-TASK-HIERARCHY.md` still shows major Phase 1 and Phase 2 items as pending.
+- `.claude.md` says Phase 1 is complete and Phase 2 is next.
+- `README.md` says Phase 2 implementation is already complete in several areas and that the repo is in progress beyond the hierarchy's recorded state.
+
+**Effect:** The repo has planning surfaces, but they do not provide reliable current-state execution truth.
+
+#### 3. Harness Audit Drift
+
+- `harness/HE-SCOPE.md`, `HE-CLUES.md`, `HE-PRIORITIES.md`, `HE-IMPLEMENTATION-PLAN.md`, and `AUDIT-SUMMARY.md` all still describe the project as greenfield or pre-infrastructure.
+- `AUDIT-SUMMARY.md` still claims all 30 features were absent/minimal at audit time and points to historical next steps that no longer match the repo.
+
+**Effect:** The harness layer is present, but it is no longer a trustworthy operational guide.
+
+#### 4. Strong Verification, Partial Portability
+
+- Versioned CI and scheduled maintenance are present.
+- Validation scripts are versioned and active.
+- A local `.git/hooks/pre-commit` exists.
+- The versioned `.husky/` directory does not currently provide an equivalent portable bootstrap path for that local hook behavior.
+
+**Effect:** Enforcement is stronger on the current machine and in CI than it is in the portable, discoverable repo surface.
+
+#### 5. Requirements And Intake Are Present
+
+- `enct/REQUIREMENTS.md`, `POLICY-INTAKE-TEMPLATE.md`, `AUTONOMY-GATES.md`, `POLICY-LEDGER.md`, and `FAILURE-LEDGER.md` exist.
+- This means the repo no longer fits the earlier classification of missing requirements or missing intake artifacts.
+
+**Effect:** The intake/requirements slot exists; the bigger issue is keeping it synchronized with actual execution progress.
+
+### Refresh Diagnosis
+
+- **Primary problem:** state-truth inconsistency
+- **Secondary problem:** portability gap for local enforcement
+- **Not the problem:** absence of harness scaffolding
+
+### Recommended Audit Stance
+
+- Preserve the existing `/harness` slot instead of creating a parallel staging area.
+- Treat the next remediation batch as a **contract-sync and status-sync batch**.
+- Avoid broad structural rewrites until the repo agrees on its current canonical layout.
+
 **Audit Date:** 2026-04-05  
 **Project:** ENCT v1.3 Agent Product (Greenfield)  
 **Assessment Method:** 3-Step Chain (What to Do → Don't Do → Options) per feature

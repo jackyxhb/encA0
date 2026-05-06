@@ -1,5 +1,48 @@
 # Gap Prioritization & Tiers — ENCT v1.3 Agent Product
 
+## Protocol Refresh — 2026-04-09
+
+The tiering below was generated against a greenfield baseline and is no longer the right execution order. For current work, use this refreshed priority stack.
+
+### Refreshed Tier 1 — Immediate Truth Repair
+
+#### R1. Portable Contract Sync
+- **Mapped HE Concern:** P0-11 Portable Agent Surface, P1-1 Repository as Truth
+- **Why first:** `AGENTS.md`, `.claude.md`, and `RULES.md` disagree with the live source layout and with active CI scripts.
+- **Target outcome:** One canonical code/document structure across portable rules, IDE shims, README, and enforcement scripts.
+
+#### R2. Planning Surface Sync
+- **Mapped HE Concern:** P1-7 Planning, Task Lists & Blackboards
+- **Why first:** `ENCT-TASK-HIERARCHY.md` is no longer a reliable live status surface.
+- **Target outcome:** The repo has one planning/status document that reflects what is actually complete, in progress, and blocked.
+
+#### R3. Harness Audit Refresh
+- **Mapped HE Concern:** P3-2 Documentation Sync
+- **Why first:** The versioned audit package still claims the repo has no infrastructure.
+- **Target outcome:** `/harness` becomes a truthful description of current maturity, not a historical artifact disguised as live guidance.
+
+### Refreshed Tier 2 — Enforcement Portability
+
+#### R4. Versioned Pre-Commit Bootstrap Path
+- **Mapped HE Concern:** P0-3 Verification, P2-1 Automated Linters
+- **Why next:** Local enforcement exists via `.git/hooks/pre-commit`, but the versioned repo surface does not make that behavior mechanically portable.
+- **Target outcome:** A discoverable, versioned way to install or mirror local pre-commit gates.
+
+#### R5. Rule-to-Script Coverage Check
+- **Mapped HE Concern:** P2-2 Dependency Enforcement, P3-2 Documentation Sync
+- **Why next:** Once the contract is synced, the repo should explicitly show which rules are mechanically enforced and which remain advisory.
+- **Target outcome:** Reduced ambiguity between declared policy and actual gates.
+
+### Refreshed Tier 3 — Structural Optimization
+
+#### R6. Planning/ledger consolidation
+- **Mapped HE Concern:** P3-4 Consolidation Loop
+- **Why later:** The repo already has multiple governance surfaces; consolidate only after truth repair.
+
+#### R7. Historical audit archival
+- **Mapped HE Concern:** P1-8 Context Anchoring
+- **Why later:** The original greenfield audit still has value as provenance, but it should be archived or marked historical after the refresh lands.
+
 **Audit Date:** 2026-04-05  
 **Methodology:** 6-Dimension Evaluation + Impact Weight + Cascade Analysis  
 **Result:** 30 features sorted into Tier 1 (Critical), Tier 2 (Important), Tier 3 (Enhancement)
